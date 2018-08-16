@@ -1,0 +1,77 @@
+
+<!-- <div class="col-sm-4"></div> -->
+<div class="myRegForm">
+    <h3>Registartion</h3>
+    <form #registrationForm="ngForm" (ngSubmit)="registerUser(registrationForm)">   
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <input type="email" name="Email" placeholder="Email"
+                   class="form-control"                    
+                   [(ngModel)]="user.Email"
+                   required>
+        </div>
+        <div class="form-group">
+            <label for="Password">Password:</label>
+            <input type="text" name="Password" placeholder="Password"
+                   class="form-control"                    
+                   [(ngModel)]="user.Password"
+                   required>           
+        </div>
+        <div class="form-group">
+            <label for="ConfirmPassword">Confirm password:</label>
+            <input type="text" name="ConfirmPassword" placeholder="Confirm password"
+                   class="form-control"                    
+                   [(ngModel)]="user.ConfirmPassword"
+                   required>           
+        </div>
+        <button type="submit" class="form-control btn btn-default" [disabled]="!registrationForm.valid">Sign up</button>	
+    </form>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+<div>
+<!-- <div class="col-sm-4"></div> -->
+
+<!-- <table>
+    <thead>
+        <tr>
+            <td>Registration:</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Email:</td>
+            <td>
+                <input type="text" name="email" placeholder="Email" ngModel 
+                (keyup)="onEmailInput($event.target.value)" />
+                <input required minlength="3" type="text" name="email" placeholder="Email" ngModel #email="ngModel" (change)="log(email)" />
+                <div *ngIf="email.touched && !email.valid">Email is required</div>
+                <div *ngIf="email.touched && !email.valid">
+                    <div *ngIf="email.errors.required">Email is required</div>
+                    <div *ngIf="email.errors.minlength">Min 3 characters</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>
+                <input type="text" name="password" placeholder="Password" ngModel 
+                (keyup)="onPasswordInput($event.target.value)" />
+            </td>
+        </tr>
+        <tr>
+            <td>Confirm password:</td>
+            <td>
+                <input type="text" name="confirmPassword" placeholder="Confirm password" ngModel 
+                (keyup)="onConfirmPasswordInput($event.target.value)" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" id="registerBtn" value="Sign up" (click)="addUser();"
+                [disabled]="buttonIsDisabled" />
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <div *ngIf="!isLoading && response">
+    {{response}}
+  </div> -->

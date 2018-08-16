@@ -1,0 +1,29 @@
+
+<div class="testDetailsBlock">
+
+  <div *ngIf="test && testIsNotStarted()">
+    <h3>{{test.Title}}</h3>
+    <p>{{test.Descr}}</p>
+    <p>Duration: {{test.DurationMin}} minutes</p>
+    <p>Number of questions: {{dataService.numOfQuestions}}</p>
+    <a class="btn btn-default" (click)="onClickStartTest()">Start test</a>
+  </div>
+  
+  <div *ngIf="testStarted()">
+    <app-question></app-question>
+    <div class="timerBlock">
+      <span>{{time.min}}m</span>:
+      <span>{{time.sec}}s</span>
+    </div>
+  </div>
+  
+  <div *ngIf="testFinished()">
+    <h3>Test is finished!</h3>
+    <button class="btn btn-default" routerLink="/testCategories">Choose another test</button>
+  </div>
+  
+  <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+
+</div>
+
+

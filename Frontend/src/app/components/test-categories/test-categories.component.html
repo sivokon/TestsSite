@@ -1,0 +1,10 @@
+
+Choose test category:
+<div>
+  <ul>
+    <li *ngFor="let category of testCategories">
+      <a routerLink="/testCategoryDetails/{{category.Id}}">{{category.Id}} - {{category.Title}}</a>
+    </li>
+  </ul>
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>

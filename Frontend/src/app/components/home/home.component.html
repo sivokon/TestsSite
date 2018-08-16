@@ -1,0 +1,17 @@
+
+<div class="testStatBlock">
+
+  <div *ngFor="let stat of testStatistics" class="singleTestStat">
+    <p>{{stat.TestId}}: (name goes here) <br>
+       Date:  {{stat.StartTime | date:'MMM d, y'}} <br>
+       Start time: {{stat.StartTime | date:'h:mm:ss'}} <br>
+       EndTime: {{stat.EndTime | date:'h:mm:ss'}} <br>
+       Result: {{stat.Result}}%
+    </p>
+    <button class="btn btn-default"
+            (click)="getAnswersByTestStatId(stat.Id)">Show details</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+
+</div>

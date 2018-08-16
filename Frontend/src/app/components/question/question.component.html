@@ -1,0 +1,38 @@
+
+<div *ngIf="question && options">
+  <h3>{{question.Index}}. {{question.Body}}</h3>
+
+  <form name="optionsForm">
+    <div class="form-group" *ngFor="let option of options">
+      <label class="radio-inline">
+        <input type="radio"
+               id="{{option.Id}}"
+               name="options"
+               value="{{option.Index}}"
+               (click)="onRadioChangeSaveAnswer(option.Index)"
+               [checked]="setRadioBtnValue(option.Index)">
+        {{option.Body}}
+      </label>
+    </div>
+  </form>
+
+  <a *ngIf="question.Index > 1"
+     (click)="getQuestion(question.Index - 1)"       
+     class="btn btn-default">< back</a>
+
+  <span *ngIf="question.Index == dataService.numOfQuestions; else nextBtnBlock">
+    <button class="btn btn-default"
+            [disabled]="!dataService.allQuestionsAreAnswered()"
+            (click)="onClickFinishTest()">Finish test</button>
+    <span *ngIf="!dataService.allQuestionsAreAnswered()" 
+          class="myFinishTestErr alert alert-danger">(Not all questions are answered)</span>
+  </span>
+
+  <ng-template #nextBtnBlock>
+    <a (click)="getQuestion(question.Index + 1)"        
+       class="btn btn-default">next ></a>
+  </ng-template>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+
+</div>

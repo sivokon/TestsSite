@@ -1,0 +1,10 @@
+
+Choose test:
+<div>
+  <ul>
+    <li *ngFor="let test of tests">
+      <a routerLink="/testDetails/{{test.Id}}">{{test.Title}} - {{test.Descr}} - {{test.DurationMin}}</a>
+    </li>
+  </ul>
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
