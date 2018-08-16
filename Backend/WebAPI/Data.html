@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <h2>Data page</h2>
+
+    <input type="button" id="btnLoad" value="Load tests" />
+    <input type="button" id="logoffBtn" value="Log off" />
+    <div id="values"></div>
+
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            if (sessionStorage.getItem('accessToken') == null) {
+                window.location.href = 'Login.html';
+            }
+
+            $('#logoffBtn').click(function () {
+                sessionStorage.removeItem('accessToken');
+                window.location.href = 'Login.html';
+            });
+
+            $('#btnLoad').click(function () {
+                $.ajax({
+                    url: 'api/test',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')
+                    },
+                    success: function (data) {
+                        $('values').empty();
+                        $('#values').text(data);
+                    },
+                    error: function (jqXHR) {
+                        if (jqXHR.status == '401') {
+                            $('#values').text('Session is expired!');
+                        }
+                        else {
+                            $('#values').text(jqXHR.responseText);
+                        }
+                    }
+                });
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

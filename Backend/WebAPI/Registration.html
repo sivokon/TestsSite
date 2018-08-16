@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Registration:</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <input type="text" placeholder="Email" id="txtEmail" />
+                </td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td>
+                    <input type="text" placeholder="Password" id="txtPassword" />
+                </td>
+            </tr>
+            <tr>
+                <td>Confirm password:</td>
+                <td>
+                    <input type="text" placeholder="Confirm password" id="txtConfirmPassword" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" id="registerBtn" value="Register" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="Login.html">Login</a>
+    <div id="error"></div>
+
+
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#registerBtn').click(function () {
+                $.ajax({
+                    url: 'api/Account/Register',
+                    method: 'POST',
+                    data: {
+                        email: $('#txtEmail').val(),
+                        password: $('#txtPassword').val(),
+                        confirmPassword: $('#txtConfirmPassword').val()
+                    },
+                    success: function () {
+                        $('#error').text('Success!!!');
+                    },
+                    error: function (jqXHR) {
+                        $('#error').text(jqXHR.responseText);
+                    }
+                });
+            });
+        });
+
+    </script>
+
+</body>
+</html>
