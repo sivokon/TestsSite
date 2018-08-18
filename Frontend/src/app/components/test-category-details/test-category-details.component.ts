@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TestModel } from '../../models/test-model';
 import { TestService } from '../../services/test.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-test-category-details',
@@ -14,7 +15,8 @@ export class TestCategoryDetailsComponent implements OnInit {
   errorMessage: string = '';
 
   constructor(private testService: TestService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private location: Location) { }
 
   ngOnInit() {
     this.getCategoryTests();
@@ -27,6 +29,10 @@ export class TestCategoryDetailsComponent implements OnInit {
         data => this.tests = data,
         error => this.errorMessage = error.message
       );
+  }
+
+  onBtnClickGoBack() {
+    this.location.back();
   }
 
 }

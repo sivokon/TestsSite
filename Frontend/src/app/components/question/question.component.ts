@@ -37,55 +37,36 @@ export class QuestionComponent implements OnInit {
     this.questionService.getQuestionByIndexAndTestId(index, testId).subscribe(
       result => {
         this.question = result,
-        console.log('question getted')
         this.optionSerice.getOptionsByQuestionId(this.question.Id).subscribe(
-          result => {
-            this.options = result,
-            console.log('options getted')
-          },
+          result => this.options = result,
           err => this.errorMessage = err.message      
         );
       },
       err => this.errorMessage = err.message
     );
-
-    // forkJoin([questionQuery, optionsQuery])
-    //   .subscribe(results => {
-    //     this.question = results[0],
-    //     this.options = results[1]        
-    //   });
   }
 
-  setRadioBtnValue(index: number) {
+  setRadioBtnValue(optionId: number) {
     let answer: AnswerModel = this.dataService.getAnswerByIndex(this.question.Index - 1);
     if (answer) {
-      if (answer.OptionIndex == index) { 
+      if (answer.OptionId == optionId) { 
         return true;
       }
     }
     return false;
   }
 
-  onRadioChangeSaveAnswer(optIndex: number): void {
-    console.log('saved');
-    console.log(optIndex);
+  onRadioChangeSaveAnswer(optionId: number): void {
     const answer: AnswerModel = {
       QuestionId: this.question.Id,
-      OptionIndex: optIndex,
+      OptionId: optionId,
     }
-    console.log(answer);
-    // console.log('index: ' + (this.question.Index-1));
-    //console.log(this.dataService.answers[this.question.Index-1]);
     this.dataService.addAnswerWithIndex(answer, this.question.Index - 1);
-    // console.log(this.dataService.completedTest.Answers[this.question.Index -1 ]);
-    // console.log(this.dataService.completedTest.Answers);
   }
 
   onClickFinishTest() {
-    this.dataService.completedTest.EndTime = new Date();
-    this.dataService.sendCompletedTest().subscribe(
-      res => console.log('sent')
-    );
+    this.dataService.endTime = new Date();
+    this.dataService.sendFinishedTestData().subscribe();
   }
 
 }

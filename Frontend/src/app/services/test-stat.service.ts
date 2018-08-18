@@ -15,12 +15,12 @@ export class TestStatService {
     'Authorization':'Bearer ' + localStorage.getItem('accessToken')
   });
 
-  getTestStatsOfCurrUser(): Observable<TestStatModel> {
-    return this.http.get<TestStatModel>('api/TestStat/byUser', { headers: this.authHeader });
+  getAnswersByTestStatId(id: number): Observable<AnswerModel> {
+    return this.http.get<AnswerModel>(`api/Answers/byTestStat/${id}`, { headers: this.authHeader });
   }
 
-  getAnswersByTestStatId(id: number): Observable<AnswerModel> {
-    return this.http.get<AnswerModel>(`api/Answer/byTestStat/${id}`, { headers: this.authHeader });
+  getTestStatsWithRelatedTestsOfCurrUser(): Observable<TestStatModel> {
+    return this.http.get<TestStatModel>('api/TestStat/WithTests/byUser', { headers: this.authHeader })
   }
 
 }

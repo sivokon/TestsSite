@@ -16,7 +16,7 @@ export class OptionService {
   });
 
   getOptionsByQuestionId(id: number): Observable<OptionModel> {
-    return this.http.get<OptionModel>(`api/Options/byQuestion/${id}`, { headers: this.authHeader });
+    return this.http.get<OptionModel>(`api/Option/byQuestion/${id}`, { headers: this.authHeader });
   }
 
 }

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 namespace WebAPI.Controllers
 {
     //[Authorize]
+    [RoutePrefix("api/Test")]
     public class TestController : ApiController
     {
         private ITestService _testService;
@@ -20,13 +21,11 @@ namespace WebAPI.Controllers
             _testService = testService;
         }
 
-        // GET: api/Test
-        public IHttpActionResult GetTests()
-        {
-            //var user = User.Identity.GetUserId();
-            //throw new NotImplementedException();
-            return this.Ok(_testService.GetAll());
-        }
+        //// GET: api/Test
+        //public IHttpActionResult GetTests()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         // GER: api/Test/5
         public IHttpActionResult GetTest(int id)
@@ -34,28 +33,29 @@ namespace WebAPI.Controllers
             return this.Ok(_testService.GetById(id));
         }
 
-        // POST: api/Test
-        [HttpPost]
-        public IHttpActionResult CreateTest([FromBody] TestDTO test)
-        {
-            throw new NotImplementedException();
-        }
+        //// POST: api/Test
+        //[HttpPost]
+        //public IHttpActionResult CreateTest([FromBody] TestDTO test)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        // PUT: api/Test/5
-        [HttpPut]
-        public IHttpActionResult UpdateTest(int id, [FromBody] TestDTO test)
-        {
-            throw new NotImplementedException();
-        }
+        //// PUT: api/Test/5
+        //[HttpPut]
+        //public IHttpActionResult UpdateTest(int id, [FromBody] TestDTO test)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        // DELETE: api/Test/5
-        [HttpDelete]
-        public IHttpActionResult DeleteTest(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //// DELETE: api/Test/5
+        //[HttpDelete]
+        //public IHttpActionResult DeleteTest(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        [Route("api/Test/byCategory/{Id}")]
+        // GET: api/Test/byCategory/5
+        [Route("byCategory/{Id}")]
         public IHttpActionResult GetTestsByCategoryId(int id)
         {
             IEnumerable<TestDTO> testsByCategory;

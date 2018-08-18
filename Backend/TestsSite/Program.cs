@@ -8,6 +8,7 @@ using DAL_EF.EF;
 using DAL_Common.Models;
 using DAL_EF;
 using DAL_EF.Repositories;
+using DAL_Common.Interfaces;
 
 namespace TestsSite
 {
@@ -20,12 +21,33 @@ namespace TestsSite
             UnitOfWork uow = new UnitOfWork(connectionString);
             TestRepository testRepository = new TestRepository(context);
 
-            IEnumerable<Test> tests = testRepository.GetAll();
-            foreach (Test test in tests)
+            //IEnumerable<Test> tests = testRepository.GetAll();
+            //foreach (Test test in tests)
+            //{
+            //    Console.WriteLine(test.Title + ", " + test.Descr);
+            //}
+            //Console.WriteLine();
+
+
+            IQuestionRepository qr = new QuestionRepository(context);
+            IEnumerable<Question> qs = qr.GetQuestionsByTestId(1);
+            foreach(var q in qs)
             {
-                Console.WriteLine(test.Title + ", " + test.Descr);
+                Console.WriteLine(q.Body);
+                //foreach (var op in q.Options)
+                //{
+                //    Console.WriteLine(op.Body);
+                //}
             }
             Console.WriteLine();
+
+            //ICorrectAnswerRepository corrQuesRepo = new CorrectAnswerRepository(context);
+            //IEnumerable<CorrectAnswer> ca = corrQuesRepo.GetCorrectAnswersByTestId(1);
+            //foreach (var a in ca)
+            //{
+            //    Console.WriteLine("Ques index: " + a.QuestionId);
+            //}
+            //Console.WriteLine();
 
 
             //TestStatRepository tsRepo = new TestStatRepository(context);

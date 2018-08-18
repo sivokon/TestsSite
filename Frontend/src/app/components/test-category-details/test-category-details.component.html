@@ -1,10 +1,15 @@
 
-Choose test:
-<div>
-  <ul>
-    <li *ngFor="let test of tests">
-      <a routerLink="/testDetails/{{test.Id}}">{{test.Title}} - {{test.Descr}} - {{test.DurationMin}}</a>
-    </li>
-  </ul>
+<div class="testsListBlock">
+
+    <h4>Choose test:</h4>
+    <div>
+      <ul>
+        <li *ngFor="let test of tests">
+          <a routerLink="/testDetails/{{test.Id}}">{{test.Title}} - {{test.Descr}} - {{test.DurationMin}}</a>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+    <button class="btn btn-default backBtn" (click)="onBtnClickGoBack()">< Back</button>
+
 </div>
-<div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>

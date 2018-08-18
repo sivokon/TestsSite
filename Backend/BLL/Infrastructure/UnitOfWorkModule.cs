@@ -4,11 +4,11 @@ using DAL_EF;
 
 namespace BLL.Infrastructure
 {
-    public class ServiceModule : NinjectModule
+    public class UnitOfWorkModule : NinjectModule
     {
         private string _connectionString;
 
-        public ServiceModule(string connectionString)
+        public UnitOfWorkModule(string connectionString)
         {
             _connectionString = connectionString;
         }

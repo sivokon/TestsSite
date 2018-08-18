@@ -6,11 +6,10 @@
     <div class="form-group" *ngFor="let option of options">
       <label class="radio-inline">
         <input type="radio"
-               id="{{option.Id}}"
                name="options"
-               value="{{option.Index}}"
-               (click)="onRadioChangeSaveAnswer(option.Index)"
-               [checked]="setRadioBtnValue(option.Index)">
+               value="{{option.Id}}"
+               (click)="onRadioChangeSaveAnswer(option.Id)"
+               [checked]="setRadioBtnValue(option.Id)">
         {{option.Body}}
       </label>
     </div>

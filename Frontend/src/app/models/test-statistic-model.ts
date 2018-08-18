@@ -1,4 +1,5 @@
 import { AnswerModel } from "./answer-model";
+import { TestModel } from "./test-model";
 
 export interface TestStatModel {
     Id: number;
@@ -7,4 +8,5 @@ export interface TestStatModel {
     EndTime: Date;
     Result: number;
     Answers: AnswerModel[];
+    Test: TestModel;
 }

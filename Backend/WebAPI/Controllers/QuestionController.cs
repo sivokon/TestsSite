@@ -10,6 +10,7 @@ using BLL.Intrefaces;
 namespace WebAPI.Controllers
 {
     //[Authorize]
+    [RoutePrefix("api/Question")]
     public class QuestionController : ApiController
     {
         private IQuestionService _questionService;
@@ -19,40 +20,41 @@ namespace WebAPI.Controllers
             _questionService = questionService;
         }
 
-        // GET: api/Question
-        public IHttpActionResult GetQuestions()
-        {
-            throw new NotImplementedException();
-        }
+        //// GET: api/Question
+        //public IHttpActionResult GetQuestions()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        // GER: api/Question/5
-        public IHttpActionResult GetQuestion(int id)
-        {
-            return this.Ok(_questionService.GetById(id));
-        }
+        //// GET: api/Question/5
+        //public IHttpActionResult GetQuestion(int id)
+        //{
+        //    return this.Ok(_questionService.GetById(id));
+        //}
 
-        // POST: api/Question
-        [HttpPost]
-        public IHttpActionResult CreateQuestion([FromBody] QuestionDTO question)
-        {
-            throw new NotImplementedException();
-        }
+        //// POST: api/Question
+        //[HttpPost]
+        //public IHttpActionResult CreateQuestion([FromBody] QuestionDTO question)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        // PUT: api/Question/5
-        [HttpPut]
-        public IHttpActionResult UpdateQuestion(int id, [FromBody] QuestionDTO question)
-        {
-            throw new NotImplementedException();
-        }
+        //// PUT: api/Question/5
+        //[HttpPut]
+        //public IHttpActionResult UpdateQuestion(int id, [FromBody] QuestionDTO question)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        // DELETE: api/Question/5
-        [HttpDelete]
-        public IHttpActionResult DeleteQuestion(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //// DELETE: api/Question/5
+        //[HttpDelete]
+        //public IHttpActionResult DeleteQuestion(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        [Route("api/Question/byTest/{id}")]
+        // GET: api/Question/byTest/5
+        [Route("byTest/{id}")]
         public IHttpActionResult GetQuestionsByTestId(int id)
         {
             IEnumerable<QuestionDTO> questionsByTest;
@@ -64,13 +66,21 @@ namespace WebAPI.Controllers
             {
                 return InternalServerError();
             }
-            return Ok(questionsByTest);
+            return this.Ok(questionsByTest);
         }
 
-        [Route("api/Question/{index}/byTest/{testId}")]
+        // GET: api/Question/5/byTest/5
+        [Route("{index}/byTest/{testId}")]
         public IHttpActionResult GetQuestionByIndexAndTestId(int index, int testId)
         {
-            return Ok(_questionService.GetQuestionByIndexAndTestId(index, testId));
+            return this.Ok(_questionService.GetQuestionByIndexAndTestId(index, testId));
+        }
+
+        // GET: api/Question/WithOptions/byTest/5
+        [Route("WithOptions/byTest/{id}")]
+        public IHttpActionResult GetQuestionsWithRelatedOptionsByTestId(int id)
+        {
+            return this.Ok(_questionService.GetQuestionsWithRelatedOptionsByTestId(id));
         }
 
     }

@@ -18,7 +18,6 @@ namespace BLL.Infrastructure
             });
 
             this.Bind<IMapper>().ToMethod(ctx => new Mapper(config));
-            //this.Bind<IMapper>().To<Mapper>().WithConstructorArgument(config);
         }
     }
 }

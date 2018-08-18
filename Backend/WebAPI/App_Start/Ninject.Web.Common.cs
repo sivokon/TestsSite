@@ -46,7 +46,7 @@ namespace WebAPI.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel(new MapperModule(), new ServiceModule(connectionString));
+            var kernel = new StandardKernel();
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -73,6 +73,8 @@ namespace WebAPI.App_Start
             kernel.Bind<IOptionService>().To<OptionService>();
             kernel.Bind<ITestStatService>().To<TestStatService>();
             kernel.Bind<IAnswerService>().To<AnswerService>();
+
+            kernel.Load(new MapperModule(), new UnitOfWorkModule(connectionString));
         }        
     }
 }

@@ -14,6 +14,7 @@ namespace BLL.DTO
         public int TestId { get; set; }
         public string UserId { get; set; }
 
+        public TestDTO Test { get; set; }
         public List<AnswerDTO> Answers { get; set; }
     }
 }

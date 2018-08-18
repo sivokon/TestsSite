@@ -1,0 +1,28 @@
+
+<div class="extendedStatBlock" *ngIf="questions && answers">
+
+    <h3 class="answersHeader">Your answers:</h3>
+    <div class="questionBlock" *ngFor="let question of questions">
+      <h4>{{question.Index}}. {{question.Body}}</h4>
+  
+      <div class="form-group" *ngFor="let option of question.Options">
+        {{option.Index}}.
+        <label class="radio-inline">
+          <input type="radio"
+                 name="options{{question.Index}}"
+                 [checked]="answers[question.Index - 1].OptionId == option.Id"
+                 disabled>
+           {{option.Body}}<br>
+        </label>      
+      </div>
+
+      <span *ngIf="answers[question.Index - 1].IsCorrect; else wrongAnswer" class="right">Correct</span>
+      <ng-template #wrongAnswer>
+        <span class="wrong">Wrong</span>
+      </ng-template>    
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+    <button class="btn btn-default backBtn" (click)="onBtnClickGoBack()">< Back</button>
+  
+  </div>

@@ -10,6 +10,7 @@ using BLL.Intrefaces;
 namespace WebAPI.Controllers
 {
     //[Authorize]
+    [RoutePrefix("api/TestCategory")]
     public class TestCategoryController : ApiController
     {
         private ITestCategoryService _testCategoryService;
@@ -25,32 +26,32 @@ namespace WebAPI.Controllers
             return this.Ok(_testCategoryService.GetAll());
         }
 
-        // GER: api/TestCategory/5
-        public IHttpActionResult GetCategory(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //// GER: api/TestCategory/5
+        //public IHttpActionResult GetCategory(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        // POST: api/TestCategory
-        [HttpPost]
-        public IHttpActionResult CreateCategory([FromBody] TestCategoryDTO category)
-        {
-            throw new NotImplementedException();
-        }
+        //// POST: api/TestCategory
+        //[HttpPost]
+        //public IHttpActionResult CreateCategory([FromBody] TestCategoryDTO category)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        // PUT: api/TestCategory/5
-        [HttpPut]
-        public IHttpActionResult UpdateCategory(int id, [FromBody] TestCategoryDTO category)
-        {
-            throw new NotImplementedException();
-        }
+        //// PUT: api/TestCategory/5
+        //[HttpPut]
+        //public IHttpActionResult UpdateCategory(int id, [FromBody] TestCategoryDTO category)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        // DELETE: api/TestCategory/5
-        [HttpDelete]
-        public IHttpActionResult DeleteCategory(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //// DELETE: api/TestCategory/5
+        //[HttpDelete]
+        //public IHttpActionResult DeleteCategory(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
     }
 }

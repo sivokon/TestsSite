@@ -34,17 +34,14 @@ namespace DAL_EF.EF
                 new Question() { Id = 1, Body = "Test1, question1", Index = 1, TestId = 1 },
                 new Question() { Id = 2, Body = "Test1, question2", Index = 2, TestId = 1 },
                 new Question() { Id = 3, Body = "Test1, question3", Index = 3, TestId = 1 },
-                //new Question() { Id = 4, Body = "Test1, question4", Index = 4, TestId = 1 },
 
                 new Question() { Id = 4, Body = "Test2, question1", Index = 1, TestId = 2 },
                 new Question() { Id = 5, Body = "Test2, question2", Index = 2, TestId = 2 },
                 new Question() { Id = 6, Body = "Test2, question3", Index = 3, TestId = 2 },
-                //new Question() { Id = 8, Body = "Test2, question4", Index = 4, TestId = 2 },
 
                 new Question() { Id = 7, Body = "Test3, question1", Index = 1, TestId = 3 },
                 new Question() { Id = 8, Body = "Test3, question2", Index = 2, TestId = 3 },
                 new Question() { Id = 9, Body = "Test3, question3", Index = 3, TestId = 3 },
-                //new Question() { Id = 12, Body = "Test3, question4", Index = 4, TestId = 3 },
             };
             questions.ForEach(x => context.Questions.Add(x));
 
@@ -90,6 +87,23 @@ namespace DAL_EF.EF
                 new Option() { Id = 27, Body = "Test3, question3, option3", Index = 3, IsCorrect = false, QuestionId = 9 },
             };
             options.ForEach(x => context.Options.Add(x));
+
+
+            List<CorrectAnswer> correctAnswers = new List<CorrectAnswer>()
+            {
+                new CorrectAnswer() { Id = 1, TestId = 1, QuestionId = 1, OptionId = 1 },
+                new CorrectAnswer() { Id = 2, TestId = 1, QuestionId = 2, OptionId = 4 },
+                new CorrectAnswer() { Id = 3, TestId = 1, QuestionId = 3, OptionId = 7 },
+            
+                new CorrectAnswer() { Id = 4, TestId = 2, QuestionId = 4, OptionId = 10 },
+                new CorrectAnswer() { Id = 5, TestId = 2, QuestionId = 5, OptionId = 13 },
+                new CorrectAnswer() { Id = 6, TestId = 2, QuestionId = 6, OptionId = 16 },
+
+                new CorrectAnswer() { Id = 7, TestId = 3, QuestionId = 7, OptionId = 19 },
+                new CorrectAnswer() { Id = 8, TestId = 3, QuestionId = 8, OptionId = 22 },
+                new CorrectAnswer() { Id = 9, TestId = 3, QuestionId = 9, OptionId = 25 },
+            };
+            correctAnswers.ForEach(x => context.CorrectAnwers.Add(x));
 
 
             //List<TestStat> testStatistics = new List<TestStat>()

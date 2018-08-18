@@ -21,6 +21,7 @@ namespace DAL_EF.EF
         public DbSet<Option> Options { get; set; }
         public DbSet<TestStat> TestStatistics { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<CorrectAnswer> CorrectAnwers { get; set; }
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{

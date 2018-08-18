@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace BLL.DTO
 {
-    public class AnswerDTO : EntityDTO
+    public class CorrectAnswerDTO
     {
+        public int TestId { get; set; }
         public int QuestionId { get; set; }
         public int OptionId { get; set; }
-        public int TestStatId { get; set; }
-        public bool IsCorrect { get; set; }
     }
 }

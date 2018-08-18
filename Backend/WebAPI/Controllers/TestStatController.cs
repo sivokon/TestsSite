@@ -12,6 +12,7 @@ using WebAPI.Models;
 namespace WebAPI.Controllers
 {
     [Authorize]
+    [RoutePrefix("api/TestStat")]
     public class TestStatController : ApiController
     {
         private ITestStatService _testStatService;
@@ -22,26 +23,47 @@ namespace WebAPI.Controllers
         }
 
         // POST: api/TestStat
+        [HttpPost]
         public IHttpActionResult CreateTestStatistic([FromBody] TestStatViewModel stat)
         {
             TestStatDTO newTestStat = new TestStatDTO()
             {
                 TestId = stat.TestId,
                 UserId = User.Identity.GetUserId(),
-                StartTime = stat.StartTime,
-                EndTime = stat.EndTime,
-                Answers = stat.Answers
+                StartTime = DateTime.Now,
             };
-            _testStatService.Add(newTestStat);    
+            _testStatService.Add(newTestStat);
             return this.Ok();
-            //throw new NotImplementedException();
         }
 
-        [Route("api/TestStat/byUser")]
-        public IHttpActionResult GetTestStatisticsByUserId()
+        // PUT: api/TestStat
+        [HttpPut]
+        public IHttpActionResult UpdateTestStatistic([FromBody] TestStatViewModel stat)
+        {
+            TestStatDTO testStat = new TestStatDTO()
+            {
+                TestId = stat.TestId,
+                UserId = User.Identity.GetUserId(),
+                EndTime = DateTime.Now,
+                Answers = stat.Answers
+            };
+            _testStatService.Update(testStat);
+            return this.Ok();
+        }
+
+        //[Route("byUser")]
+        //public IHttpActionResult GetTestStatisticsByUserId()
+        //{
+        //    string userId = User.Identity.GetUserId();
+        //    return this.Ok(_testStatService.GetTestStatisticsByUserId(userId));
+        //}
+
+        // GET: api/TestStat/WithTests/byUser
+        [Route("WithTests/byUser")]
+        public IHttpActionResult GetTestStatisticsWithRelatedTestsByUserId()
         {
             string userId = User.Identity.GetUserId();
-            return this.Ok(_testStatService.GetTestStatisticsByUserId(userId));
+            return this.Ok(_testStatService.GetTestStatisticsWithRelatedTestsByUserId(userId));
         }
 
     }

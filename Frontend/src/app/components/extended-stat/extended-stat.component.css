@@ -1,0 +1,19 @@
+.extendedStatBlock {
+    margin-left: 50px;
+}
+
+.questionBlock, .backBtn {
+    margin-bottom: 40px;
+}
+
+.answersHeader {
+    margin-bottom: 30px;
+}
+
+.right {
+    color: green;
+}
+
+.wrong {
+    color: red;
+}

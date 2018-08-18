@@ -20,8 +20,4 @@ export class TestCategoryService {
     return this.http.get<TestCategoryModel>('api/TestCategory', { headers: this.authHeader });
   }
 
-  // errorHandler(error: HttpErrorResponse) {
-  //   return Observable.throw(error.message || 'Server error occured');
-  // }
-
 }

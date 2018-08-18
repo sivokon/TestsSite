@@ -13,6 +13,7 @@ import { TestCategoriesComponent } from './components/test-categories/test-categ
 import { TestCategoryDetailsComponent } from './components/test-category-details/test-category-details.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
 import { QuestionComponent } from './components/question/question.component';
+import { ExtendedStatComponent } from './components/extended-stat/extended-stat.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { QuestionComponent } from './components/question/question.component';
     TestCategoriesComponent,
     TestCategoryDetailsComponent,
     TestDetailsComponent,
-    QuestionComponent
+    QuestionComponent,
+    ExtendedStatComponent
   ],
   imports: [
     BrowserModule,

@@ -11,5 +11,6 @@ namespace DAL_Common.Interfaces
     {
         IEnumerable<Question> GetQuestionsByTestId(int id);
         Question GetQuestionByIndexAndTestId(int index, int testId);
+        IEnumerable<Question> GetQuestionsWithRelatedOptionsByTestId(int id);
     }
 }

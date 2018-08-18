@@ -4,5 +4,5 @@ export interface TestModel {
     Descr: string;
     CreationDate: Date;
     DurationMin: number;
-    CategiryId: number;
+    CategoryId: number;
 }

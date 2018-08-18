@@ -21,9 +21,22 @@ namespace BLL.Services
 
         public void Add(TestStatDTO entity)
         {
-            entity.Result = CalculateTestResult(entity);
+            _unitOfWork.TestStatistics.DeleteNotFinishedTestStatisticsByUserId(entity.UserId);
             TestStat stat = _mapper.Map<TestStat>(entity);
             _unitOfWork.TestStatistics.Add(stat);
+            _unitOfWork.SaveChanges();
+        }
+
+        public void Update(TestStatDTO entity)
+        {
+            entity.Result = this.CalculateTestResult(entity);
+
+            TestStat startedStat = _unitOfWork.TestStatistics.GetNotFinishedTestByUserId(entity.UserId);
+            startedStat.Result = entity.Result;
+            startedStat.EndTime = entity.EndTime;
+            startedStat.Answers = _mapper.Map<ICollection<Answer>>(entity.Answers);
+
+            _unitOfWork.TestStatistics.Update(startedStat);
             _unitOfWork.SaveChanges();
         }
 
@@ -39,26 +52,62 @@ namespace BLL.Services
             return _mapper.Map<IEnumerable<TestStatDTO>>(stats);
         }
 
+        public IEnumerable<TestStatDTO> GetTestStatisticsWithRelatedTestsByUserId(string id)
+        {
+            IEnumerable<TestStat> stats = _unitOfWork.TestStatistics.GetTestStatisticsWithRelatedTestsByUserId(id);
+            return _mapper.Map<IEnumerable<TestStatDTO>>(stats);
+        }
+
         private int CalculateTestResult(TestStatDTO entity)
         {
-            List<Question> questions = (List<Question>)_unitOfWork.Questions.GetQuestionsByTestId(entity.TestId);           
+            List<CorrectAnswer> corrAnswers = (List<CorrectAnswer>)_unitOfWork.CorrectAnswers.GetCorrectAnswersByTestId(entity.TestId);
+
+            //Dictionary<int, int> answers = new Dictionary<int, int>();
+            //for (int i = 0; i < entity.Answers.Count; i++)
+            //{
+            //    foreach (CorrectAnswer corrAnsw in corrAnswers)
+            //    {
+            //        if (corrAnsw.QuestionId == entity.Answers[i].QuestionId)
+            //        {
+            //            if (entity.Answers[i].OptionId == corrAnsw.OptionId)
+            //            {
+            //                answers[corrAnswers[i].QuestionId]++;
+            //                entity.Answers[i].IsCorrect = true;
+            //                break;
+            //            }
+            //            else
+            //            {
+            //                entity.Answers[i].IsCorrect = false;
+            //            }
+            //        }
+            //    }
+            //}
+
+
+
+            //List<CorrectAnswer> corrAnswers = (List<CorrectAnswer>)_unitOfWork.CorrectAnswers.GetCorrectAnswersByTestId(entity.TestId);
             int numOfRightAnsw = 0;
 
-            for (int i = 0; i < questions.Count; i++)
+            for (int i = 0; i < corrAnswers.Count; i++)
             {
-                //for (int j = 0; j < questions[i].Options.Count; j++)
-                //{
-                  
-                //}
-                foreach (Option option in questions[i].Options)
+                foreach (CorrectAnswer corrAnsw in corrAnswers)
                 {
-                    if (option.IsCorrect && option.Index == entity.Answers[i].OptionIndex)
+                    if (corrAnsw.QuestionId == entity.Answers[i].QuestionId)
                     {
-                        numOfRightAnsw++;
+                        if (entity.Answers[i].OptionId == corrAnswers[i].OptionId)
+                        {
+                            numOfRightAnsw++;
+                            entity.Answers[i].IsCorrect = true;
+                        }
+                        else
+                        {
+                            entity.Answers[i].IsCorrect = false;
+                        }
                     }
                 }
             }
-            return numOfRightAnsw * 100 / questions.Count;
+
+            return numOfRightAnsw * 100 / corrAnswers.Count;
         }
 
 

@@ -13,9 +13,10 @@ namespace BLL.Intrefaces
         //IEnumerable<TestStat> GetAll();
         TestStatDTO GetById(int id);
         void Add(TestStatDTO entity);
-        //void Update(T entity);
+        void Update(TestStatDTO entity);
         //void Delete(int id);
 
         IEnumerable<TestStatDTO> GetTestStatisticsByUserId(string id);
+        IEnumerable<TestStatDTO> GetTestStatisticsWithRelatedTestsByUserId(string id);
     }
 }

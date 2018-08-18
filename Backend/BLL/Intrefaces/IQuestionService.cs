@@ -18,5 +18,6 @@ namespace BLL.Intrefaces
 
         IEnumerable<QuestionDTO> GetQuestionsByTestId(int id);
         QuestionDTO GetQuestionByIndexAndTestId(int index, int testId);
+        IEnumerable<QuestionDTO> GetQuestionsWithRelatedOptionsByTestId(int id);
     }
 }

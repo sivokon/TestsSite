@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\AnswerDTO.cs" />
+    <Compile Include="DTO\CorrectAnswerDTO.cs" />
     <Compile Include="DTO\EntityDTO.cs" />
     <Compile Include="DTO\OptionDTO.cs" />
     <Compile Include="DTO\QuestionDTO.cs" />
@@ -59,7 +60,7 @@
     <Compile Include="DTO\TestStatDTO.cs" />
     <Compile Include="Infrastructure\MapperModule.cs" />
     <Compile Include="Infrastructure\MapperProfile.cs" />
-    <Compile Include="Infrastructure\ServiceModule.cs" />
+    <Compile Include="Infrastructure\UnitOfWorkModule.cs" />
     <Compile Include="Intrefaces\IAnswerService.cs" />
     <Compile Include="Intrefaces\IOptionService.cs" />
     <Compile Include="Intrefaces\IQuestionService.cs" />

@@ -5,6 +5,8 @@ import { TestService } from '../../services/test.service';
 import { TestModel } from '../../models/test-model';
 import { TestStatModel } from '../../models/test-statistic-model';
 import { TestStatService } from '../../services/test-stat.service';
+import { QuestionService } from '../../services/question.service';
+import { QuestionModel } from '../../models/question-model';
 
 @Component({
   selector: 'app-home',
@@ -16,28 +18,21 @@ export class HomeComponent implements OnInit {
   testStatistics: TestStatModel;
   errorMessage: string = '';
 
+  questions: QuestionModel;
+
   constructor(private testStatService: TestStatService) { }
 
   ngOnInit() {
-    this.getTestStatsOfCurrUser();
+    this.getTestStatsWithRelatedTestsOfCurrUser();
   }
 
-  getTestStatsOfCurrUser() {
-    this.testStatService.getTestStatsOfCurrUser().subscribe(
+  getTestStatsWithRelatedTestsOfCurrUser() {
+    this.testStatService.getTestStatsWithRelatedTestsOfCurrUser().subscribe(
       res => {
         this.testStatistics = res      
       },
       error => this.errorMessage = error.message
     );
-  }
-
-  getAnswersByTestStatId(id: number) {
-    this.testStatService.getAnswersByTestStatId(id).subscribe(
-      res => {
-        
-      },
-      error => this.errorMessage = error.message
-    )
   }
 
 }

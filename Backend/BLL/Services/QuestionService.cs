@@ -56,5 +56,12 @@ namespace BLL.Services
             Question question = _unitOfWork.Questions.GetQuestionByIndexAndTestId(index, testId);
             return _mapper.Map<QuestionDTO>(question);
         }
+
+        public IEnumerable<QuestionDTO> GetQuestionsWithRelatedOptionsByTestId(int id)
+        {
+            IEnumerable<Question> questions = _unitOfWork.Questions.GetQuestionsWithRelatedOptionsByTestId(id);
+            return _mapper.Map<IEnumerable<QuestionDTO>>(questions);
+        }
+
     }
 }

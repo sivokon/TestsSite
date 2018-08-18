@@ -23,6 +23,7 @@ namespace DAL_Common.Interfaces
         IOptionRepository Options { get; }
         ITestStatRepository TestStatistics { get; }
         IAnswerRepository Answers { get; }
+        ICorrectAnswerRepository CorrectAnswers { get; }
         void SaveChanges();
     }
 }

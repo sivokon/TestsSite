@@ -6,6 +6,7 @@ import { QuestionService } from '../../services/question.service';
 import { forkJoin, timer, interval } from '../../../../node_modules/rxjs';
 import { TestDetailsQuestionDataService } from '../../services/test-details-question-data.service';
 import { takeWhile } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-test-details',
@@ -24,7 +25,8 @@ export class TestDetailsComponent implements OnInit {
   constructor(private testService: TestService,
               private route: ActivatedRoute,
               private questionService: QuestionService,
-              public dataService: TestDetailsQuestionDataService) { }
+              public dataService: TestDetailsQuestionDataService,
+              private location: Location) { }
 
   ngOnInit() {
     this.dataService.resetTest();
@@ -48,7 +50,8 @@ export class TestDetailsComponent implements OnInit {
 
   onClickStartTest(): void {
     this.dataService.completedTest.TestId = +this.route.snapshot.paramMap.get('id');
-    this.dataService.completedTest.StartTime = new Date();
+    this.dataService.startTime = new Date();
+    this.dataService.sendStartedTestData().subscribe();
     this.startTimer();
   }
 
@@ -68,24 +71,28 @@ export class TestDetailsComponent implements OnInit {
           }
         },
         () => {
-          this.dataService.completedTest.EndTime = new Date();
-          this.dataService.sendCompletedTest();
+          this.dataService.endTime = new Date();
+          this.dataService.sendFinishedTestData();
         });
   }
 
+  onBtnClickGoBack() {
+    this.location.back();
+  }
+
   private testIsNotStarted(): boolean {
-    return this.dataService.completedTest.StartTime == null && 
-           this.dataService.completedTest.EndTime == null;
+    return this.dataService.startTime == null && 
+           this.dataService.endTime == null;
   }
 
   private testStarted(): boolean {
-    return this.dataService.completedTest.StartTime != null && 
-           this.dataService.completedTest.EndTime == null;
+    return this.dataService.startTime != null && 
+           this.dataService.endTime == null;
   }
 
   private testFinished(): boolean {
-    return this.dataService.completedTest.StartTime != null && 
-           this.dataService.completedTest.EndTime != null;
+    return this.dataService.startTime != null && 
+           this.dataService.endTime != null;
   }
 
 }

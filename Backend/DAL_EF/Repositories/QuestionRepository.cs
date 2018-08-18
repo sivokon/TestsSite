@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DAL_Common.Models;
 using DAL_Common.Interfaces;
 using DAL_EF.EF;
+using System.Data.Entity;
 
 namespace DAL_EF.Repositories
 {
@@ -22,8 +23,13 @@ namespace DAL_EF.Repositories
 
         IEnumerable<Question> IQuestionRepository.GetQuestionsByTestId(int id)
         {
-            //return this.GetManyByPredicate(question => question.TestId == id);
-            return this._context.Questions.Include("Options").Where(question => question.TestId == id).ToList();
+            return this.GetManyByPredicate(question => question.TestId == id);            
+        }
+
+        IEnumerable<Question> IQuestionRepository.GetQuestionsWithRelatedOptionsByTestId(int id)
+        {
+            return this.GetManyByPredicate(question => question.TestId == id,
+                                                       question => question.Options);
         }
 
     }

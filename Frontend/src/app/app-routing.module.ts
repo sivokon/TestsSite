@@ -10,11 +10,13 @@ import { AuthGuard } from './auth/auth.guard';
 import { TestCategoryDetailsComponent } from './components/test-category-details/test-category-details.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
 import { QuestionComponent } from './components/question/question.component';
+import { ExtendedStatComponent } from './components/extended-stat/extended-stat.component';
 
 const routes: Routes = [
   { path: 'sign-up', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home/extended/:statId/:testId', component: ExtendedStatComponent, canActivate: [AuthGuard] },
   { path: 'testCategories', component: TestCategoriesComponent, canActivate: [AuthGuard] },
   { path: 'testCategoryDetails/:id', component: TestCategoryDetailsComponent, canActivate: [AuthGuard] },
   { path: 'testDetails/:id', component: TestDetailsComponent, canActivate: [AuthGuard] },

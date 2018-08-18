@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.DTO
+namespace DAL_Common.Models
 {
-    public class AnswerDTO : EntityDTO
+    public class CorrectAnswer : Entity
     {
+        public int TestId { get; set; }
+        public virtual Test Test { get; set; }
+
         public int QuestionId { get; set; }
         public int OptionId { get; set; }
-        public int TestStatId { get; set; }
-        public bool IsCorrect { get; set; }
     }
 }

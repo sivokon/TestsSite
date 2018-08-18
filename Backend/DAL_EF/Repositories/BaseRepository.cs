@@ -13,7 +13,7 @@ namespace DAL_EF.Repositories
     public class BaseRepository<T> where T : Entity
     {
         public TestDbContext _context { get; private set; }
-        private DbSet<T> _dbSet;
+        protected DbSet<T> _dbSet;
 
         public BaseRepository(TestDbContext context)
         {
@@ -37,6 +37,7 @@ namespace DAL_EF.Repositories
             {
                 throw new ArgumentNullException();
             }
+
             _dbSet.Add(entity);
         }
 
@@ -46,29 +47,45 @@ namespace DAL_EF.Repositories
             {
                 throw new ArgumentNullException();
             }
+
             T itemToUpdate = _dbSet.Find(entity.Id);
+
             if (itemToUpdate == null)
             {
                 throw new ArgumentException();
             }
+
             _context.Entry(itemToUpdate).CurrentValues.SetValues(entity);
         }
 
         public virtual void Delete(int id)
         {
             T itemToDel = _dbSet.Find(id);
+
             if (itemToDel != null)
             {
                 _dbSet.Remove(itemToDel);
             }
         }
 
-        public IEnumerable<T> GetManyByPredicate(Expression<Func<T, bool>> predicate)
+        //public IEnumerable<T> GetManyByPredicate(Expression<Func<T, bool>> predicate)
+        //{
+        //    return _dbSet.Where(predicate).ToList();
+        //}
+
+        protected IEnumerable<T> GetManyByPredicate(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
-            return _dbSet.Where(predicate).ToList();
+            IQueryable<T> query = _dbSet;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query.Where(predicate).ToList();
         }
 
-        public T GetSingleByPredicate(Expression<Func<T, bool>> predicate)
+        protected T GetSingleByPredicate(Expression<Func<T, bool>> predicate)
         {
             return _dbSet.FirstOrDefault(predicate);
         }
