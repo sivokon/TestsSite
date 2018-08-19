@@ -16,7 +16,6 @@ namespace DAL_Common.Models
         public virtual Test Test { get; set; }
 
         public string UserId { get; set; }
-        //public virtual User User { get; set; }
 
         public virtual ICollection<Answer> Answers { get; set; }
     }

@@ -14,6 +14,7 @@ namespace DAL_Common.Models
         public int TestId { get; set; }
         public virtual Test Test { get; set; }
 
-        public virtual ICollection<Option> Options { get; set; }
+        public ICollection<Option> Options { get; set; }
+        public ICollection<CorrectOption> CorrectOptions { get; set; }
     }
 }

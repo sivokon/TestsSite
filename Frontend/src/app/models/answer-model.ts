@@ -1,4 +1,7 @@
+import { AnswerOption } from "./answer-option";
+
 export interface AnswerModel {
     QuestionId: number;
-    OptionId: number;
+    AnswerOptions: AnswerOption[];
+    PointValue: number;
 }

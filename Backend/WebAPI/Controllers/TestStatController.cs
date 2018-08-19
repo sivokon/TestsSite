@@ -11,7 +11,7 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     [RoutePrefix("api/TestStat")]
     public class TestStatController : ApiController
     {
@@ -20,35 +20,6 @@ namespace WebAPI.Controllers
         public TestStatController(ITestStatService testStatService)
         {
             _testStatService = testStatService;
-        }
-
-        // POST: api/TestStat
-        [HttpPost]
-        public IHttpActionResult CreateTestStatistic([FromBody] TestStatViewModel stat)
-        {
-            TestStatDTO newTestStat = new TestStatDTO()
-            {
-                TestId = stat.TestId,
-                UserId = User.Identity.GetUserId(),
-                StartTime = DateTime.Now,
-            };
-            _testStatService.Add(newTestStat);
-            return this.Ok();
-        }
-
-        // PUT: api/TestStat
-        [HttpPut]
-        public IHttpActionResult UpdateTestStatistic([FromBody] TestStatViewModel stat)
-        {
-            TestStatDTO testStat = new TestStatDTO()
-            {
-                TestId = stat.TestId,
-                UserId = User.Identity.GetUserId(),
-                EndTime = DateTime.Now,
-                Answers = stat.Answers
-            };
-            _testStatService.Update(testStat);
-            return this.Ok();
         }
 
         //[Route("byUser")]
@@ -64,6 +35,37 @@ namespace WebAPI.Controllers
         {
             string userId = User.Identity.GetUserId();
             return this.Ok(_testStatService.GetTestStatisticsWithRelatedTestsByUserId(userId));
+        }
+
+        // POST: api/TestStat
+        [HttpPost]
+        public IHttpActionResult StartTest([FromBody] StartTestBindingModel stat)
+        {
+            TestStatDTO newTestStat = new TestStatDTO()
+            {
+                TestId = stat.TestId,
+                UserId = User.Identity.GetUserId(),
+                StartTime = DateTime.Now,
+            };
+            _testStatService.StartTest(newTestStat);
+
+            return this.Ok();
+        }
+
+        // PUT: api/TestStat
+        [HttpPut]
+        public IHttpActionResult SaveCompletedTest([FromBody] FinishTestBindingModel stat)
+        {
+            TestStatDTO testStat = new TestStatDTO()
+            {
+                TestId = stat.TestId,
+                UserId = User.Identity.GetUserId(),
+                EndTime = DateTime.Now,
+                Answers = stat.Answers
+            };
+            _testStatService.SaveCompletedTest(testStat);
+
+            return this.Ok();
         }
 
     }

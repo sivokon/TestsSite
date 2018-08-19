@@ -270,9 +270,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OptionController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TestCategoryController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TestStatController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -280,8 +282,8 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\OptionViewModel.cs" />
-    <Compile Include="Models\TestStatViewModel.cs" />
+    <Compile Include="Models\TestCategoryBindingModels.cs" />
+    <Compile Include="Models\TestStatBindingModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />

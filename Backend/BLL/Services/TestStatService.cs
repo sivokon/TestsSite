@@ -4,6 +4,7 @@ using BLL.Intrefaces;
 using DAL_Common.Interfaces;
 using DAL_Common.Models;
 using BLL.DTO;
+using System;
 
 namespace BLL.Services
 {
@@ -17,27 +18,32 @@ namespace BLL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
-
-        public void Add(TestStatDTO entity)
+        
+        
+        public void StartTest(TestStatDTO entity)
         {
             _unitOfWork.TestStatistics.DeleteNotFinishedTestStatisticsByUserId(entity.UserId);
+
             TestStat stat = _mapper.Map<TestStat>(entity);
             _unitOfWork.TestStatistics.Add(stat);
             _unitOfWork.SaveChanges();
         }
 
-        public void Update(TestStatDTO entity)
+        public void SaveCompletedTest(TestStatDTO endTestData)
         {
-            entity.Result = this.CalculateTestResult(entity);
+            endTestData.Result = this.CalculateTestResult(endTestData);
 
-            TestStat startedStat = _unitOfWork.TestStatistics.GetNotFinishedTestByUserId(entity.UserId);
-            startedStat.Result = entity.Result;
-            startedStat.EndTime = entity.EndTime;
-            startedStat.Answers = _mapper.Map<ICollection<Answer>>(entity.Answers);
+            TestStat startedTestData = _unitOfWork.TestStatistics.GetNotFinishedTestByUserId(endTestData.UserId);
 
-            _unitOfWork.TestStatistics.Update(startedStat);
-            _unitOfWork.SaveChanges();
+            if (this.TestWasSentOnTime(startedTestData, endTestData))
+            {
+                startedTestData.Result = endTestData.Result;
+                startedTestData.EndTime = endTestData.EndTime;
+                startedTestData.Answers = _mapper.Map<ICollection<Answer>>(endTestData.Answers);
+
+                _unitOfWork.TestStatistics.Update(startedTestData);
+                _unitOfWork.SaveChanges();
+            }            
         }
 
         public TestStatDTO GetById(int id)
@@ -58,58 +64,99 @@ namespace BLL.Services
             return _mapper.Map<IEnumerable<TestStatDTO>>(stats);
         }
 
+        public TestStatDTO GetNotFinishedTestByUserId(string id)
+        {
+            // ne nuzhen
+            TestStat stat = _unitOfWork.TestStatistics.GetNotFinishedTestByUserId(id);
+            return _mapper.Map<TestStatDTO>(stat);
+        }
+
+
+        private bool TestWasSentOnTime(TestStat startTestData, TestStatDTO endTestData)
+        {
+            int testDurMin = startTestData.Test.DurationMin;
+            int actualTestDurMin = (endTestData.EndTime - DateTime.Now).Minutes - 1;
+
+            return actualTestDurMin <= testDurMin;
+        }
+
         private int CalculateTestResult(TestStatDTO entity)
         {
-            List<CorrectAnswer> corrAnswers = (List<CorrectAnswer>)_unitOfWork.CorrectAnswers.GetCorrectAnswersByTestId(entity.TestId);
-
-            //Dictionary<int, int> answers = new Dictionary<int, int>();
-            //for (int i = 0; i < entity.Answers.Count; i++)
-            //{
-            //    foreach (CorrectAnswer corrAnsw in corrAnswers)
-            //    {
-            //        if (corrAnsw.QuestionId == entity.Answers[i].QuestionId)
-            //        {
-            //            if (entity.Answers[i].OptionId == corrAnsw.OptionId)
-            //            {
-            //                answers[corrAnswers[i].QuestionId]++;
-            //                entity.Answers[i].IsCorrect = true;
-            //                break;
-            //            }
-            //            else
-            //            {
-            //                entity.Answers[i].IsCorrect = false;
-            //            }
-            //        }
-            //    }
-            //}
-
-
-
-            //List<CorrectAnswer> corrAnswers = (List<CorrectAnswer>)_unitOfWork.CorrectAnswers.GetCorrectAnswersByTestId(entity.TestId);
+            List<Question> questionsWithCorrectOptions = (List<Question>)_unitOfWork.Questions.GetQuestionWithCorrectOptionsByTestId(entity.TestId);
+            
             int numOfRightAnsw = 0;
 
-            for (int i = 0; i < corrAnswers.Count; i++)
+            foreach (AnswerDTO answer in entity.Answers)
             {
-                foreach (CorrectAnswer corrAnsw in corrAnswers)
+                answer.PointValue = this.GetPointForAnswer(answer, questionsWithCorrectOptions);
+
+                if (answer.PointValue == 1)
                 {
-                    if (corrAnsw.QuestionId == entity.Answers[i].QuestionId)
+                    numOfRightAnsw++;
+                }
+            }
+
+            return numOfRightAnsw * 100 / entity.Answers.Count;
+        }
+
+        private int GetPointForAnswer(AnswerDTO answer, List<Question> questionsWithCorrectOptions)
+        {
+            foreach (Question question in questionsWithCorrectOptions)
+            {
+                if (answer.QuestionId == question.Id)
+                {
+                    if (this.ChosenOptionsAreCorrect(answer.AnswerOptions, question.CorrectOptions))
                     {
-                        if (entity.Answers[i].OptionId == corrAnswers[i].OptionId)
-                        {
-                            numOfRightAnsw++;
-                            entity.Answers[i].IsCorrect = true;
-                        }
-                        else
-                        {
-                            entity.Answers[i].IsCorrect = false;
-                        }
+                        return 1;
+                    }
+                    break;
+                }
+            }
+            return 0;
+        }
+
+        private bool ChosenOptionsAreCorrect(ICollection<AnswerOptionDTO> chosenOptions, ICollection<CorrectOption> correctOptions)
+        {
+            if (chosenOptions.Count != correctOptions.Count)
+            {
+                return false;
+            }
+
+            int numOfEqual = 0;
+
+            foreach (AnswerOptionDTO chosenOption in chosenOptions)
+            {
+                foreach (CorrectOption corrAnsw in correctOptions)
+                {
+                    if (chosenOption.OptionId == corrAnsw.OptionId)
+                    {
+                        numOfEqual++;
+                        break;
                     }
                 }
             }
 
-            return numOfRightAnsw * 100 / corrAnswers.Count;
+            return numOfEqual == correctOptions.Count;
         }
 
 
     }
+
+
+    public class TestSaveResult
+    {
+        public bool Succeeded { get; }
+        public string[] Errors { get; }
+
+        public TestSaveResult(bool succeeded)
+        {
+            this.Succeeded = succeeded;
+        }
+
+        public TestSaveResult(params string[] errors)
+        {
+            this.Errors = errors;
+        }
+    }
+
 }

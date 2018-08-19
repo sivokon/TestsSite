@@ -45,7 +45,6 @@ namespace DAL_EF
         private Lazy<IOptionRepository> _optionRepository;
         private Lazy<ITestStatRepository> _testStatRepository;
         private Lazy<IAnswerRepository> _answerRepository;
-        private Lazy<ICorrectAnswerRepository> _correctAnswerRepository;
 
         public UnitOfWork(string connectionString)
         {
@@ -56,7 +55,6 @@ namespace DAL_EF
             _optionRepository = new Lazy<IOptionRepository>(() => new OptionRepository(_context));
             _testStatRepository = new Lazy<ITestStatRepository>(() => new TestStatRepository(_context));
             _answerRepository = new Lazy<IAnswerRepository>(() => new AnswerRepository(_context));
-            _correctAnswerRepository = new Lazy<ICorrectAnswerRepository>(() => new CorrectAnswerRepository(_context));
         }
 
         public ITestRepository Tests => _testRepository.Value;
@@ -65,7 +63,6 @@ namespace DAL_EF
         public IOptionRepository Options => _optionRepository.Value;
         public ITestStatRepository TestStatistics => _testStatRepository.Value;
         public IAnswerRepository Answers => _answerRepository.Value;
-        public ICorrectAnswerRepository CorrectAnswers => _correctAnswerRepository.Value;
 
         public void SaveChanges()
         {

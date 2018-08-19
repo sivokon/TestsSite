@@ -30,14 +30,14 @@ namespace TestsSite
 
 
             IQuestionRepository qr = new QuestionRepository(context);
-            IEnumerable<Question> qs = qr.GetQuestionsByTestId(1);
+            IEnumerable<Question> qs = qr.GetAll();
             foreach(var q in qs)
             {
-                Console.WriteLine(q.Body);
-                //foreach (var op in q.Options)
-                //{
-                //    Console.WriteLine(op.Body);
-                //}
+                Console.WriteLine(q.Id);
+                foreach (var op in q.Options)
+                {
+                    Console.WriteLine(op.Id);
+                }
             }
             Console.WriteLine();
 

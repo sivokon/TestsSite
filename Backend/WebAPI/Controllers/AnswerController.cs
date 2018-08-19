@@ -9,7 +9,8 @@ using BLL.Intrefaces;
 
 namespace WebAPI.Controllers
 {
-    [RoutePrefix("api/Answers")]
+    [Authorize(Roles = "User")]
+    [RoutePrefix("api/Answers")]    
     public class AnswerController : ApiController
     {
         private IAnswerService _answerService;
@@ -21,9 +22,9 @@ namespace WebAPI.Controllers
 
         // GET: api/Answers/byTestStat/5
         [Route("byTestStat/{id}")]
-        public IHttpActionResult GetAnswersByTestStatisticId(int id)
+        public IHttpActionResult GetAnswersWithAnswerOptionsByTestStatisticId(int id)
         {
-            return this.Ok(_answerService.GetAnswersByTestStatisticId(id));
+            return this.Ok(this._answerService.GetAnswersWithAnswerOptionsByTestStatisticId(id));
         }
 
     }

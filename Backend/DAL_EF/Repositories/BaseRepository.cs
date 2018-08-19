@@ -68,11 +68,6 @@ namespace DAL_EF.Repositories
             }
         }
 
-        //public IEnumerable<T> GetManyByPredicate(Expression<Func<T, bool>> predicate)
-        //{
-        //    return _dbSet.Where(predicate).ToList();
-        //}
-
         protected IEnumerable<T> GetManyByPredicate(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _dbSet;
@@ -85,9 +80,15 @@ namespace DAL_EF.Repositories
             return query.Where(predicate).ToList();
         }
 
-        protected T GetSingleByPredicate(Expression<Func<T, bool>> predicate)
+        protected T GetSingleByPredicate(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
-            return _dbSet.FirstOrDefault(predicate);
+            IQueryable<T> query = _dbSet;
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+            return query.FirstOrDefault(predicate);
         }
 
     }

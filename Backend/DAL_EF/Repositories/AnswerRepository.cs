@@ -15,9 +15,10 @@ namespace DAL_EF.Repositories
         {
         }
 
-        IEnumerable<Answer> IAnswerRepository.GetAnswersByTestStatisticId(int id)
+        IEnumerable<Answer> IAnswerRepository.GetAnswersWithAnswerOptionsByTestStatisticId(int id)
         {
-            return this.GetManyByPredicate(answer => answer.TestStatId == id);
+            return this.GetManyByPredicate(answer => answer.TestStatId == id,
+                                           answer => answer.AnswerOptions);
         }
     }
 }

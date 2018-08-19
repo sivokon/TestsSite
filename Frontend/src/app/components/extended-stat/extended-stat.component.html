@@ -10,13 +10,12 @@
         <label class="radio-inline">
           <input type="radio"
                  name="options{{question.Index}}"
-                 [checked]="answers[question.Index - 1].OptionId == option.Id"
+                 [checked]="answers[question.Index - 1].AnswerOptions[0].OptionId == option.Id"
                  disabled>
            {{option.Body}}<br>
         </label>      
       </div>
-
-      <span *ngIf="answers[question.Index - 1].IsCorrect; else wrongAnswer" class="right">Correct</span>
+      <span *ngIf="answers[question.Index - 1].PointValue == 1; else wrongAnswer" class="right">Correct</span>
       <ng-template #wrongAnswer>
         <span class="wrong">Wrong</span>
       </ng-template>    

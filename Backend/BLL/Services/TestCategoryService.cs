@@ -19,10 +19,23 @@ namespace BLL.Services
         }
 
 
+        public void Add(TestCategoryDTO entity)
+        {
+            TestCategory category = _mapper.Map<TestCategory>(entity);
+            _unitOfWork.TestCategories.Add(category);
+            _unitOfWork.SaveChanges();
+        }
+
         public void Update(TestCategoryDTO entity)
         {
             TestCategory category = _mapper.Map<TestCategory>(entity);
             _unitOfWork.TestCategories.Update(category);
+            _unitOfWork.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            _unitOfWork.TestCategories.Delete(id);
             _unitOfWork.SaveChanges();
         }
 

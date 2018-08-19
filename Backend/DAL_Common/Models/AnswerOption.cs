@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace DAL_Common.Models
 {
-    public class CorrectAnswer : Entity
+    public class AnswerOption : Entity
     {
-        public int TestId { get; set; }
-        public virtual Test Test { get; set; }
-
-        public int QuestionId { get; set; }
         public int OptionId { get; set; }
+
+        public int AnswerId { get; set; }
+        public Answer Answer { get; set; }
     }
 }

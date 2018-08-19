@@ -11,11 +11,15 @@ import { TestCategoryDetailsComponent } from './components/test-category-details
 import { TestDetailsComponent } from './components/test-details/test-details.component';
 import { QuestionComponent } from './components/question/question.component';
 import { ExtendedStatComponent } from './components/extended-stat/extended-stat.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { TestEditorComponent } from './components/test-editor/test-editor.component';
 
 const routes: Routes = [
   { path: 'sign-up', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'edit', component: TestEditorComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: 'home/extended/:statId/:testId', component: ExtendedStatComponent, canActivate: [AuthGuard] },
   { path: 'testCategories', component: TestCategoriesComponent, canActivate: [AuthGuard] },
   { path: 'testCategoryDetails/:id', component: TestCategoryDetailsComponent, canActivate: [AuthGuard] },

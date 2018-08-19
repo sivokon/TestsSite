@@ -46,64 +46,106 @@ namespace DAL_EF.EF
             questions.ForEach(x => context.Questions.Add(x));
 
 
+            //List<Option> options = new List<Option>()
+            //{
+            //    new Option() { Id = 1, Body = "Test1, question1, option1", Index = 1, IsCorrect = true, QuestionId = 1 },
+            //    new Option() { Id = 2, Body = "Test1, question1, option2", Index = 2, IsCorrect = false, QuestionId = 1 },
+            //    new Option() { Id = 3, Body = "Test1, question1, option3", Index = 3, IsCorrect = false, QuestionId = 1 },
+
+            //    new Option() { Id = 4, Body = "Test1, question2, option1", Index = 1, IsCorrect = true, QuestionId = 2 },
+            //    new Option() { Id = 5, Body = "Test1, question2, option2", Index = 2, IsCorrect = false, QuestionId = 2 },
+            //    new Option() { Id = 6, Body = "Test1, question2, option3", Index = 3, IsCorrect = false, QuestionId = 2 },
+
+            //    new Option() { Id = 7, Body = "Test1, question3, option1", Index = 1, IsCorrect = true, QuestionId = 3 },
+            //    new Option() { Id = 8, Body = "Test1, question3, option2", Index = 2, IsCorrect = false, QuestionId = 3 },
+            //    new Option() { Id = 9, Body = "Test1, question3, option3", Index = 3, IsCorrect = false, QuestionId = 3 },
+
+
+            //    new Option() { Id = 10, Body = "Test2, question1, option1", Index = 1, IsCorrect = true, QuestionId = 4 },
+            //    new Option() { Id = 11, Body = "Test2, question1, option2", Index = 2, IsCorrect = false, QuestionId = 4 },
+            //    new Option() { Id = 12, Body = "Test2, question1, option3", Index = 3, IsCorrect = false, QuestionId = 4 },
+
+            //    new Option() { Id = 13, Body = "Test2, question2, option1", Index = 1, IsCorrect = true, QuestionId = 5 },
+            //    new Option() { Id = 14, Body = "Test2, question2, option2", Index = 2, IsCorrect = false, QuestionId = 5 },
+            //    new Option() { Id = 15, Body = "Test2, question2, option3", Index = 3, IsCorrect = false, QuestionId = 5 },
+
+            //    new Option() { Id = 16, Body = "Test2, question3, option1", Index = 1, IsCorrect = true, QuestionId = 6 },
+            //    new Option() { Id = 17, Body = "Test2, question3, option2", Index = 2, IsCorrect = false, QuestionId = 6 },
+            //    new Option() { Id = 18, Body = "Test2, question3, option3", Index = 3, IsCorrect = false, QuestionId = 6 },
+
+
+            //    new Option() { Id = 19, Body = "Test3, question1, option1", Index = 1, IsCorrect = true, QuestionId = 7 },
+            //    new Option() { Id = 20, Body = "Test3, question1, option2", Index = 2, IsCorrect = false, QuestionId = 7 },
+            //    new Option() { Id = 21, Body = "Test3, question1, option3", Index = 3, IsCorrect = false, QuestionId = 7 },
+
+            //    new Option() { Id = 22, Body = "Test3, question2, option1", Index = 1, IsCorrect = true, QuestionId = 8 },
+            //    new Option() { Id = 23, Body = "Test3, question2, option2", Index = 2, IsCorrect = false, QuestionId = 8 },
+            //    new Option() { Id = 24, Body = "Test3, question2, option3", Index = 3, IsCorrect = false, QuestionId = 8 },
+
+            //    new Option() { Id = 25, Body = "Test3, question3, option1", Index = 1, IsCorrect = true, QuestionId = 9 },
+            //    new Option() { Id = 26, Body = "Test3, question3, option2", Index = 2, IsCorrect = false, QuestionId = 9 },
+            //    new Option() { Id = 27, Body = "Test3, question3, option3", Index = 3, IsCorrect = false, QuestionId = 9 },
+            //};
+            //options.ForEach(x => context.Options.Add(x));
+
+
+
             List<Option> options = new List<Option>()
             {
-                new Option() { Id = 1, Body = "Test1, question1, option1", Index = 1, IsCorrect = true, QuestionId = 1 },
-                new Option() { Id = 2, Body = "Test1, question1, option2", Index = 2, IsCorrect = false, QuestionId = 1 },
-                new Option() { Id = 3, Body = "Test1, question1, option3", Index = 3, IsCorrect = false, QuestionId = 1 },
+                new Option() { Id = 1, Body = "Test1, question1, option1", Index = 1, QuestionId = 1 },
+                new Option() { Id = 2, Body = "Test1, question1, option2", Index = 2, QuestionId = 1 },
+                new Option() { Id = 3, Body = "Test1, question1, option3", Index = 3, QuestionId = 1 },
 
-                new Option() { Id = 4, Body = "Test1, question2, option1", Index = 1, IsCorrect = true, QuestionId = 2 },
-                new Option() { Id = 5, Body = "Test1, question2, option2", Index = 2, IsCorrect = false, QuestionId = 2 },
-                new Option() { Id = 6, Body = "Test1, question2, option3", Index = 3, IsCorrect = false, QuestionId = 2 },
+                new Option() { Id = 4, Body = "Test1, question2, option1", Index = 1, QuestionId = 2 },
+                new Option() { Id = 5, Body = "Test1, question2, option2", Index = 2, QuestionId = 2 },
+                new Option() { Id = 6, Body = "Test1, question2, option3", Index = 3, QuestionId = 2 },
 
-                new Option() { Id = 7, Body = "Test1, question3, option1", Index = 1, IsCorrect = true, QuestionId = 3 },
-                new Option() { Id = 8, Body = "Test1, question3, option2", Index = 2, IsCorrect = false, QuestionId = 3 },
-                new Option() { Id = 9, Body = "Test1, question3, option3", Index = 3, IsCorrect = false, QuestionId = 3 },
-
-
-                new Option() { Id = 10, Body = "Test2, question1, option1", Index = 1, IsCorrect = true, QuestionId = 4 },
-                new Option() { Id = 11, Body = "Test2, question1, option2", Index = 2, IsCorrect = false, QuestionId = 4 },
-                new Option() { Id = 12, Body = "Test2, question1, option3", Index = 3, IsCorrect = false, QuestionId = 4 },
-
-                new Option() { Id = 13, Body = "Test2, question2, option1", Index = 1, IsCorrect = true, QuestionId = 5 },
-                new Option() { Id = 14, Body = "Test2, question2, option2", Index = 2, IsCorrect = false, QuestionId = 5 },
-                new Option() { Id = 15, Body = "Test2, question2, option3", Index = 3, IsCorrect = false, QuestionId = 5 },
-
-                new Option() { Id = 16, Body = "Test2, question3, option1", Index = 1, IsCorrect = true, QuestionId = 6 },
-                new Option() { Id = 17, Body = "Test2, question3, option2", Index = 2, IsCorrect = false, QuestionId = 6 },
-                new Option() { Id = 18, Body = "Test2, question3, option3", Index = 3, IsCorrect = false, QuestionId = 6 },
+                new Option() { Id = 7, Body = "Test1, question3, option1", Index = 1, QuestionId = 3 },
+                new Option() { Id = 8, Body = "Test1, question3, option2", Index = 2, QuestionId = 3 },
+                new Option() { Id = 9, Body = "Test1, question3, option3", Index = 3, QuestionId = 3 },
 
 
-                new Option() { Id = 19, Body = "Test3, question1, option1", Index = 1, IsCorrect = true, QuestionId = 7 },
-                new Option() { Id = 20, Body = "Test3, question1, option2", Index = 2, IsCorrect = false, QuestionId = 7 },
-                new Option() { Id = 21, Body = "Test3, question1, option3", Index = 3, IsCorrect = false, QuestionId = 7 },
+                new Option() { Id = 10, Body = "Test2, question1, option1", Index = 1, QuestionId = 4 },
+                new Option() { Id = 11, Body = "Test2, question1, option2", Index = 2, QuestionId = 4 },
+                new Option() { Id = 12, Body = "Test2, question1, option3", Index = 3, QuestionId = 4 },
 
-                new Option() { Id = 22, Body = "Test3, question2, option1", Index = 1, IsCorrect = true, QuestionId = 8 },
-                new Option() { Id = 23, Body = "Test3, question2, option2", Index = 2, IsCorrect = false, QuestionId = 8 },
-                new Option() { Id = 24, Body = "Test3, question2, option3", Index = 3, IsCorrect = false, QuestionId = 8 },
+                new Option() { Id = 13, Body = "Test2, question2, option1", Index = 1, QuestionId = 5 },
+                new Option() { Id = 14, Body = "Test2, question2, option2", Index = 2, QuestionId = 5 },
+                new Option() { Id = 15, Body = "Test2, question2, option3", Index = 3, QuestionId = 5 },
 
-                new Option() { Id = 25, Body = "Test3, question3, option1", Index = 1, IsCorrect = true, QuestionId = 9 },
-                new Option() { Id = 26, Body = "Test3, question3, option2", Index = 2, IsCorrect = false, QuestionId = 9 },
-                new Option() { Id = 27, Body = "Test3, question3, option3", Index = 3, IsCorrect = false, QuestionId = 9 },
+                new Option() { Id = 16, Body = "Test2, question3, option1", Index = 1, QuestionId = 6 },
+                new Option() { Id = 17, Body = "Test2, question3, option2", Index = 2, QuestionId = 6 },
+                new Option() { Id = 18, Body = "Test2, question3, option3", Index = 3, QuestionId = 6 },
+
+
+                new Option() { Id = 19, Body = "Test3, question1, option1", Index = 1, QuestionId = 7 },
+                new Option() { Id = 20, Body = "Test3, question1, option2", Index = 2, QuestionId = 7 },
+                new Option() { Id = 21, Body = "Test3, question1, option3", Index = 3, QuestionId = 7 },
+
+                new Option() { Id = 22, Body = "Test3, question2, option1", Index = 1, QuestionId = 8 },
+                new Option() { Id = 23, Body = "Test3, question2, option2", Index = 2, QuestionId = 8 },
+                new Option() { Id = 24, Body = "Test3, question2, option3", Index = 3, QuestionId = 8 },
+
+                new Option() { Id = 25, Body = "Test3, question3, option1", Index = 1, QuestionId = 9 },
+                new Option() { Id = 26, Body = "Test3, question3, option2", Index = 2, QuestionId = 9 },
+                new Option() { Id = 27, Body = "Test3, question3, option3", Index = 3, QuestionId = 9 },
             };
             options.ForEach(x => context.Options.Add(x));
 
 
-            List<CorrectAnswer> correctAnswers = new List<CorrectAnswer>()
+            List<CorrectOption> correctOptions = new List<CorrectOption>()
             {
-                new CorrectAnswer() { Id = 1, TestId = 1, QuestionId = 1, OptionId = 1 },
-                new CorrectAnswer() { Id = 2, TestId = 1, QuestionId = 2, OptionId = 4 },
-                new CorrectAnswer() { Id = 3, TestId = 1, QuestionId = 3, OptionId = 7 },
-            
-                new CorrectAnswer() { Id = 4, TestId = 2, QuestionId = 4, OptionId = 10 },
-                new CorrectAnswer() { Id = 5, TestId = 2, QuestionId = 5, OptionId = 13 },
-                new CorrectAnswer() { Id = 6, TestId = 2, QuestionId = 6, OptionId = 16 },
-
-                new CorrectAnswer() { Id = 7, TestId = 3, QuestionId = 7, OptionId = 19 },
-                new CorrectAnswer() { Id = 8, TestId = 3, QuestionId = 8, OptionId = 22 },
-                new CorrectAnswer() { Id = 9, TestId = 3, QuestionId = 9, OptionId = 25 },
+                new CorrectOption() { QuestionId = 1, OptionId = 1 },
+                new CorrectOption() { QuestionId = 2, OptionId = 4 },
+                new CorrectOption() { QuestionId = 3, OptionId = 7 },
+                new CorrectOption() { QuestionId = 4, OptionId = 10 },
+                new CorrectOption() { QuestionId = 5, OptionId = 13 },
+                new CorrectOption() { QuestionId = 6, OptionId = 16 },
+                new CorrectOption() { QuestionId = 7, OptionId = 19 },
+                new CorrectOption() { QuestionId = 8, OptionId = 22 },
+                new CorrectOption() { QuestionId = 9, OptionId = 25 },
             };
-            correctAnswers.ForEach(x => context.CorrectAnwers.Add(x));
+            correctOptions.ForEach(x => context.CorrectOptions.Add(x));
 
 
             //List<TestStat> testStatistics = new List<TestStat>()

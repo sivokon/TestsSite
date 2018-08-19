@@ -9,8 +9,7 @@ using BLL.Intrefaces;
 using Microsoft.AspNet.Identity;
 
 namespace WebAPI.Controllers
-{
-    //[Authorize]
+{    
     [RoutePrefix("api/Test")]
     public class TestController : ApiController
     {
@@ -30,29 +29,15 @@ namespace WebAPI.Controllers
         // GER: api/Test/5
         public IHttpActionResult GetTest(int id)
         {
-            return this.Ok(_testService.GetById(id));
+            TestDTO test = _testService.GetById(id);
+
+            if (test == null)
+            {
+                return Content(HttpStatusCode.NotFound, $"Test with id = {id} does not exist.");
+            }
+
+            return this.Ok(test);
         }
-
-        //// POST: api/Test
-        //[HttpPost]
-        //public IHttpActionResult CreateTest([FromBody] TestDTO test)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //// PUT: api/Test/5
-        //[HttpPut]
-        //public IHttpActionResult UpdateTest(int id, [FromBody] TestDTO test)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //// DELETE: api/Test/5
-        //[HttpDelete]
-        //public IHttpActionResult DeleteTest(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         // GET: api/Test/byCategory/5
         [Route("byCategory/{Id}")]
@@ -67,7 +52,32 @@ namespace WebAPI.Controllers
             {
                 return InternalServerError();
             }
+
             return Ok(testsByCategory);
+        }
+
+        // POST: api/Test
+        [HttpPost]
+        [Authorize(Roles = "Admin, Editor")]
+        public IHttpActionResult CreateTest([FromBody] TestDTO test)
+        {
+            throw new NotImplementedException();
+        }
+
+        // PUT: api/Test/5
+        [HttpPut]
+        [Authorize(Roles = "Admin, Editor")]
+        public IHttpActionResult UpdateTest(int id, [FromBody] TestDTO test)
+        {
+            throw new NotImplementedException();
+        }
+
+        // DELETE: api/Test/5
+        [HttpDelete]
+        [Authorize(Roles = "Admin, Editor")]
+        public IHttpActionResult DeleteTest(int id)
+        {
+            throw new NotImplementedException();
         }
 
     }

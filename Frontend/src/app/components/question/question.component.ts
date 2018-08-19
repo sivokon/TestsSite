@@ -8,6 +8,7 @@ import { Observable, forkJoin, pipe } from '../../../../node_modules/rxjs';
 import { TestDetailsQuestionDataService } from '../../services/test-details-question-data.service';
 import { AnswerModel } from '../../models/answer-model';
 import { mergeMap, map } from '../../../../node_modules/rxjs/operators';
+import { AnswerOption } from '../../models/answer-option';
 
 
 @Component({
@@ -37,8 +38,12 @@ export class QuestionComponent implements OnInit {
     this.questionService.getQuestionByIndexAndTestId(index, testId).subscribe(
       result => {
         this.question = result,
+        console.log(this.question)
         this.optionSerice.getOptionsByQuestionId(this.question.Id).subscribe(
-          result => this.options = result,
+          result => {
+            this.options = result,
+            console.log(this.options)
+          },
           err => this.errorMessage = err.message      
         );
       },
@@ -49,7 +54,7 @@ export class QuestionComponent implements OnInit {
   setRadioBtnValue(optionId: number) {
     let answer: AnswerModel = this.dataService.getAnswerByIndex(this.question.Index - 1);
     if (answer) {
-      if (answer.OptionId == optionId) { 
+      if (answer.AnswerOptions[0].OptionId == optionId) { 
         return true;
       }
     }
@@ -57,9 +62,14 @@ export class QuestionComponent implements OnInit {
   }
 
   onRadioChangeSaveAnswer(optionId: number): void {
+    let answerOption: AnswerOption = {
+      OptionId: optionId
+    }
     const answer: AnswerModel = {
       QuestionId: this.question.Id,
-      OptionId: optionId,
+      //OptionId: optionId,
+      AnswerOptions: [answerOption],
+      PointValue: 0
     }
     this.dataService.addAnswerWithIndex(answer, this.question.Index - 1);
   }

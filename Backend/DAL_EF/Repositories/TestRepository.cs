@@ -17,30 +17,8 @@ namespace DAL_EF.Repositories
 
         IEnumerable<Test> ITestRepository.GetTestsByCategoryId(int id)
         {
-            //return _context.Tests.Where(test => test.CategoryId == id).ToList();
             return this.GetManyByPredicate(test => test.CategoryId == id);
         }
-
-
-
-        //IEnumerable<Test> ITestRepository.GetTestsByCategory()
-        //{
-        //    IQueryable<Test> testsByCategory = _context.Tests.Join(_context.TestCategories,
-        //                                                            test => test.CategoryId,
-        //                                                            cat => cat.Id,
-        //                                                            (test, category) => new Test()
-        //                                                            {
-        //                                                                Title = test.Title,
-        //                                                                Descr = test.Descr,
-        //                                                                CreationDate = test.CreationDate,
-        //                                                                DurationMin = test.DurationMin,
-        //                                                                CategoryId = test.CategoryId,
-        //                                                                Category = test.Category,
-        //                                                                Questions = test.Questions,
-        //                                                                TestStatistics = test.TestStatistics
-        //                                                            });
-        //    return testsByCategory.ToList();
-        //}
 
     }
 }

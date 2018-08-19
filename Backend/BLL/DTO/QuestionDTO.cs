@@ -12,6 +12,8 @@ namespace BLL.DTO
         public int Index { get; set; }
         public int TestId { get; set; }
 
-        public IEnumerable<OptionDTO> Options { get; set; }
+        public List<OptionDTO> Options { get; set; }
+
+        public List<CorrectOptionDTO> CorrectOptions { get; set; }
     }
 }

@@ -52,10 +52,12 @@ export class TestDetailsQuestionDataService {
   });
 
   sendStartedTestData() {
+    console.log(this.completedTest);
     return this.http.post('api/TestStat', this.completedTest, { headers: this.authHeader });
   }
 
   sendFinishedTestData() {
+    console.log(this.completedTest);
     return this.http.put('api/TestStat', this.completedTest, { headers: this.authHeader });
   }
 

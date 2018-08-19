@@ -337,6 +337,13 @@ namespace WebAPI.Controllers
                 return GetErrorResult(result);
             }
 
+            IdentityResult addToRoleResult = UserManager.AddToRole(user.Id, "User");
+
+            if (!addToRoleResult.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
             return Ok();
         }
 

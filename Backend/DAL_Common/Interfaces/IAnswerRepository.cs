@@ -9,6 +9,6 @@ namespace DAL_Common.Interfaces
 {
     public interface IAnswerRepository : IRepository<Answer>
     {
-        IEnumerable<Answer> GetAnswersByTestStatisticId(int id);
+        IEnumerable<Answer> GetAnswersWithAnswerOptionsByTestStatisticId(int id);
     }
 }

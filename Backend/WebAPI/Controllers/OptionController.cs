@@ -10,7 +10,7 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/Option")]
     public class OptionController : ApiController
     {
@@ -20,39 +20,6 @@ namespace WebAPI.Controllers
         {
             _optionService = optionService;
         }
-
-        //// GET: api/Option
-        //public IHttpActionResult GetOptions()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //// GER: api/Option/5
-        //public IHttpActionResult GetOption(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //// POST: api/Option
-        //[HttpPost]
-        //public IHttpActionResult CreateOption([FromBody] OptionDTO option)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //// PUT: api/Option/5
-        //[HttpPut]
-        //public IHttpActionResult UpdateOption(int id, [FromBody] OptionDTO option)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //// DELETE: api/Option/5
-        //[HttpDelete]
-        //public IHttpActionResult DeleteOption(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         // GET: api/Option/byQuestion/5
         [Route("byQuestion/{id}")]
@@ -68,19 +35,55 @@ namespace WebAPI.Controllers
                 return InternalServerError();
             }
 
-            //List<OptionViewModel> optionsVM = null;
-            //foreach (OptionDTO option in optionsByQuestion)
-            //{
-            //    OptionViewModel optVM = new OptionViewModel()
-            //    {
-            //        Body = option.Body,
-            //        Index = option.Index,
-            //        QuestionId = option.QuestionId
-            //    };
-            //    optionsVM.Add(optVM);
-            //}
-
             return Ok(optionsByQuestion);
+        }
+
+        //// GET: api/Option
+        //public IHttpActionResult GetOptions()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //// GET: api/Option/5
+        //public IHttpActionResult GetOption(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        // POST: api/Option
+        [HttpPost]
+        [Authorize(Roles = "Admin, Editor")]
+        public IHttpActionResult CreateOption([FromBody] OptionDTO newOption)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (newOption == null)
+            {
+                return BadRequest();
+            }
+
+            _optionService.Add(newOption);
+
+            return this.Ok();
+        }
+
+        // PUT: api/Option/5
+        [HttpPut]
+        [Authorize(Roles = "Admin, Editor")]
+        public IHttpActionResult UpdateOption(int id, [FromBody] OptionDTO option)
+        {
+            throw new NotImplementedException();
+        }
+
+        // DELETE: api/Option/5
+        [HttpDelete]
+        [Authorize(Roles = "Admin, Editor")]
+        public IHttpActionResult DeleteOption(int id)
+        {
+            throw new NotImplementedException();
         }
 
     }

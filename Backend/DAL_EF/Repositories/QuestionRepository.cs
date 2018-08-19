@@ -32,5 +32,11 @@ namespace DAL_EF.Repositories
                                                        question => question.Options);
         }
 
+        IEnumerable<Question> IQuestionRepository.GetQuestionWithCorrectOptionsByTestId(int id)
+        {
+            return this.GetManyByPredicate(question => question.TestId == id,
+                                                       question => question.CorrectOptions);
+        }
+
     }
 }

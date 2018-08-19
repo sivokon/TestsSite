@@ -12,8 +12,8 @@ namespace BLL.Intrefaces
     {
         IEnumerable<TestCategoryDTO> GetAll();
         TestCategoryDTO GetById(int id);
-        //void Add(TestCategory entity);
+        void Add(TestCategoryDTO entity);
         void Update(TestCategoryDTO entity);
-        //void Delete(int id);
+        void Delete(int id);
     }
 }

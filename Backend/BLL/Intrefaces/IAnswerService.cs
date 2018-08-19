@@ -16,6 +16,7 @@ namespace BLL.Intrefaces
         //void Update(T entity);
         //void Delete(int id);
 
-        IEnumerable<AnswerDTO> GetAnswersByTestStatisticId(int id);
+        //IEnumerable<AnswerDTO> GetAnswersByTestStatisticId(int id);
+        IEnumerable<AnswerDTO> GetAnswersWithAnswerOptionsByTestStatisticId(int id);
     }
 }

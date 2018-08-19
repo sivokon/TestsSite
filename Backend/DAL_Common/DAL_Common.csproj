@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IAnswerRepository.cs" />
-    <Compile Include="Interfaces\ICorrectAnswerRepository.cs" />
     <Compile Include="Interfaces\IOptionRepository.cs" />
     <Compile Include="Interfaces\IQuestionRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
@@ -51,7 +50,8 @@
     <Compile Include="Interfaces\ITestStatRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\Answer.cs" />
-    <Compile Include="Models\CorrectAnswer.cs" />
+    <Compile Include="Models\AnswerOption.cs" />
+    <Compile Include="Models\CorrectOption.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Option.cs" />
     <Compile Include="Models\Question.cs" />

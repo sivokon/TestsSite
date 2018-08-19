@@ -14,6 +14,8 @@ import { TestCategoryDetailsComponent } from './components/test-category-details
 import { TestDetailsComponent } from './components/test-details/test-details.component';
 import { QuestionComponent } from './components/question/question.component';
 import { ExtendedStatComponent } from './components/extended-stat/extended-stat.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { TestEditorComponent } from './components/test-editor/test-editor.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { ExtendedStatComponent } from './components/extended-stat/extended-stat.
     TestCategoryDetailsComponent,
     TestDetailsComponent,
     QuestionComponent,
-    ExtendedStatComponent
+    ExtendedStatComponent,
+    AdminComponent,
+    TestEditorComponent
   ],
   imports: [
     BrowserModule,

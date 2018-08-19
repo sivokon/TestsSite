@@ -32,9 +32,15 @@ namespace BLL.Services
             return _mapper.Map<AnswerDTO>(answer);
         }
 
-        public IEnumerable<AnswerDTO> GetAnswersByTestStatisticId(int id)
+        //public IEnumerable<AnswerDTO> GetAnswersByTestStatisticId(int id)
+        //{
+        //    IEnumerable<Answer> answers = _unitOfWork.Answers.GetAnswersByTestStatisticId(id);
+        //    return _mapper.Map<IEnumerable<AnswerDTO>>(answers);
+        //}
+
+        public IEnumerable<AnswerDTO> GetAnswersWithAnswerOptionsByTestStatisticId(int id)
         {
-            IEnumerable<Answer> answers = _unitOfWork.Answers.GetAnswersByTestStatisticId(id);
+            IEnumerable<Answer> answers = _unitOfWork.Answers.GetAnswersWithAnswerOptionsByTestStatisticId(id);
             return _mapper.Map<IEnumerable<AnswerDTO>>(answers);
         }
 
