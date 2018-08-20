@@ -24,6 +24,9 @@ namespace DAL_EF.EF
         public DbSet<AnswerOption> AnswerOptions { get; set; }
         public DbSet<CorrectOption> CorrectOptions { get; set; }
 
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{
         //    // использование Fluent API

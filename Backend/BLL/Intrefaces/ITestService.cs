@@ -17,5 +17,6 @@ namespace BLL.Intrefaces
         void Delete(int id);
 
         IEnumerable<TestDTO> GetTestsByCategoryId(int id);
+        IEnumerable<TestDTO> GetTestsByTitleKeyWord(string keyWord);
     }
 }

@@ -24,7 +24,7 @@ namespace WebAPI
             ApplicationDbContext context = new ApplicationDbContext();
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
   
             if (!roleManager.RoleExists("Admin"))
             { 
@@ -39,11 +39,11 @@ namespace WebAPI
 
                 string password = "123@Admin";
 
-                IdentityResult createUser = UserManager.Create(user, password);
+                IdentityResult createUser = userManager.Create(user, password);
   
                 if (createUser.Succeeded)
                 {
-                    UserManager.AddToRole(user.Id, "Admin");
+                    userManager.AddToRole(user.Id, "Admin");
                 }
             }
    

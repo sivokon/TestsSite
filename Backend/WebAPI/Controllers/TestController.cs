@@ -7,6 +7,8 @@ using System.Web.Http;
 using BLL.DTO;
 using BLL.Intrefaces;
 using Microsoft.AspNet.Identity;
+using WebAPI.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace WebAPI.Controllers
 {    
@@ -20,12 +22,6 @@ namespace WebAPI.Controllers
             _testService = testService;
         }
 
-        //// GET: api/Test
-        //public IHttpActionResult GetTests()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         // GER: api/Test/5
         public IHttpActionResult GetTest(int id)
         {
@@ -33,7 +29,8 @@ namespace WebAPI.Controllers
 
             if (test == null)
             {
-                return Content(HttpStatusCode.NotFound, $"Test with id = {id} does not exist.");
+                return Content(HttpStatusCode.NotFound, 
+                    $"Test with id = {id} does not exist.");
             }
 
             return this.Ok(test);
@@ -54,6 +51,14 @@ namespace WebAPI.Controllers
             }
 
             return Ok(testsByCategory);
+        }
+
+        // GET: api/Test/byKeyWord&keyWord=word
+        [Route("byKeyWord")]
+        public IHttpActionResult GetTestsByTitleKeyWord(string keyWord)
+        {
+            IEnumerable<TestDTO> tests = _testService.GetTestsByTitleKeyWord(keyWord);
+            return Ok(tests);
         }
 
         // POST: api/Test

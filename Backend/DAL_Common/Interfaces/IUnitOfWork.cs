@@ -15,6 +15,10 @@ namespace DAL_Common.Interfaces
         IOptionRepository Options { get; }
         ITestStatRepository TestStatistics { get; }
         IAnswerRepository Answers { get; }
+
+        IUserRepository Users { get; }
+        IRoleRepository Roles { get; }
+
         void SaveChanges();
     }
 }

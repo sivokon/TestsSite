@@ -41,14 +41,20 @@ namespace BLL.Services
 
         public IEnumerable<TestCategoryDTO> GetAll()
         {
-            IEnumerable<TestCategory> categories = _unitOfWork.TestCategories.GetAll();
-            return _mapper.Map<IEnumerable<TestCategoryDTO>>(categories);
+            IEnumerable<TestCategory> tests = _unitOfWork.TestCategories.GetAll();
+            return _mapper.Map<IEnumerable<TestCategoryDTO>>(tests);
         }
 
         public TestCategoryDTO GetById(int id)
         {
             TestCategory category = _unitOfWork.TestCategories.GetById(id);
             return _mapper.Map<TestCategoryDTO>(category);
+        }
+
+        public IEnumerable<TestCategoryDTO> GetCategoriesByTitleKeyWord(string keyWord)
+        {
+            IEnumerable<TestCategory> tests = _unitOfWork.TestCategories.GetCategoriesByTitleKeyWord(keyWord);
+            return _mapper.Map<IEnumerable<TestCategoryDTO>>(tests);
         }
 
     }

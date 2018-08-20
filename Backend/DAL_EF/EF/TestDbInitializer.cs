@@ -148,6 +148,25 @@ namespace DAL_EF.EF
             correctOptions.ForEach(x => context.CorrectOptions.Add(x));
 
 
+            List<Role> roles = new List<Role>()
+            {
+                new Role() { Id = 1, Title = "Admin" },
+                new Role() { Id = 2, Title = "Editor" },
+                new Role() { Id = 3, Title = "User" },
+            };
+            roles.ForEach(x => context.Roles.Add(x));
+
+
+            List<User> users = new List<User>()
+            {
+                new User() { Id = 1, UserName = "user1@ukr.net", Email = "user1@ukr.net" },
+                new User() { Id = 2, UserName = "user2@ukr.net", Email = "user2@ukr.net" },
+                new User() { Id = 3, UserName = "user3@ukr.net", Email = "user3@ukr.net" },
+                new User() { Id = 4, UserName = "user4@ukr.net", Email = "user4@ukr.net" }
+            };
+            users.ForEach(x => context.Users.Add(x));
+
+
             //List<TestStat> testStatistics = new List<TestStat>()
             //{
 

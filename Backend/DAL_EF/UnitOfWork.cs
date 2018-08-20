@@ -46,6 +46,9 @@ namespace DAL_EF
         private Lazy<ITestStatRepository> _testStatRepository;
         private Lazy<IAnswerRepository> _answerRepository;
 
+        private Lazy<IUserRepository> _userRepository;
+        private Lazy<IRoleRepository> _roleRepository;
+
         public UnitOfWork(string connectionString)
         {
             _context = new TestDbContext(connectionString);
@@ -55,6 +58,9 @@ namespace DAL_EF
             _optionRepository = new Lazy<IOptionRepository>(() => new OptionRepository(_context));
             _testStatRepository = new Lazy<ITestStatRepository>(() => new TestStatRepository(_context));
             _answerRepository = new Lazy<IAnswerRepository>(() => new AnswerRepository(_context));
+
+            _userRepository = new Lazy<IUserRepository>(() => new UserRepository(_context));
+            _roleRepository = new Lazy<IRoleRepository>(() => new RoleRepository(_context));
         }
 
         public ITestRepository Tests => _testRepository.Value;
@@ -63,6 +69,9 @@ namespace DAL_EF
         public IOptionRepository Options => _optionRepository.Value;
         public ITestStatRepository TestStatistics => _testStatRepository.Value;
         public IAnswerRepository Answers => _answerRepository.Value;
+
+        public IUserRepository Users => _userRepository.Value;
+        public IRoleRepository Roles => _roleRepository.Value;
 
         public void SaveChanges()
         {

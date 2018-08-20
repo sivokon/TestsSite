@@ -15,7 +15,9 @@ namespace DAL_EF.Repositories
         {
         }
 
-
-
+        IEnumerable<TestCategory> ITestCategoryRepository.GetCategoriesByTitleKeyWord(string keyWord)
+        {
+            return this.GetManyByPredicate(category => category.Title.Contains(keyWord));
+        }
     }
 }

@@ -57,5 +57,10 @@ namespace BLL.Services
             return _mapper.Map<IEnumerable<TestDTO>>(tests);
         }
 
+        public IEnumerable<TestDTO> GetTestsByTitleKeyWord(string keyWord)
+        {
+            IEnumerable<Test> tests = _unitOfWork.Tests.GetTestsByTitleKeyWord(keyWord);
+            return _mapper.Map<IEnumerable<TestDTO>>(tests);
+        }
     }
 }

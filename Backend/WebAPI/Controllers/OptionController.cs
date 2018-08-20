@@ -10,7 +10,6 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/Option")]
     public class OptionController : ApiController
     {
@@ -57,12 +56,7 @@ namespace WebAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            if (newOption == null)
-            {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             _optionService.Add(newOption);

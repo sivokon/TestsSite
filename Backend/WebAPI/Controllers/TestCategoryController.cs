@@ -11,7 +11,6 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/TestCategory")]
     public class TestCategoryController : ApiController
     {
@@ -25,15 +24,8 @@ namespace WebAPI.Controllers
         // GET: api/TestCategory
         public IHttpActionResult GetCategories()
         {
-            return this.Ok(this._testCategoryService.GetAll());
-            
+            return this.Ok(this._testCategoryService.GetAll());           
         }
-
-        //// GET: api/TestCategory/5
-        //public IHttpActionResult GetCategory(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         // POST: api/TestCategory
         [HttpPost]
@@ -99,6 +91,17 @@ namespace WebAPI.Controllers
             this._testCategoryService.Delete(id);
 
             return Ok();
+        }
+
+        // GET: api/TestCategory/byKeyWord&keyWord=word
+        [HttpGet]
+        [Route("byKeyWord")]
+        public IHttpActionResult GetCategoryByTitleKeyWord(string keyWord)
+        {
+            IEnumerable<TestCategoryDTO> categories = 
+                this._testCategoryService.GetCategoriesByTitleKeyWord(keyWord);
+
+            return Ok(categories);
         }
 
     }

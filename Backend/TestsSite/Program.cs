@@ -34,10 +34,10 @@ namespace TestsSite
             foreach(var q in qs)
             {
                 Console.WriteLine(q.Id);
-                foreach (var op in q.Options)
-                {
-                    Console.WriteLine(op.Id);
-                }
+                //foreach (var op in q.Options)
+                //{
+                //    Console.WriteLine(op.Id);
+                //}
             }
             Console.WriteLine();
 
@@ -78,8 +78,18 @@ namespace TestsSite
             //tsRepo.Add(testStat);
 
 
+            IUserRepository ur = new UserRepository(context);
+            List<User> users = ur.GetUsersByUsernameKeyWord("us").ToList();
+            foreach (var user in users)
+            {
+                Console.WriteLine(user.Email);
+            }
+
+
             Console.WriteLine("THE END");
             Console.ReadLine();
         }
     }
+
+
 }

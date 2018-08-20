@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using BLL.DTO;
+using BLL.Intrefaces;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -14,15 +16,81 @@ namespace WebAPI.Controllers
     [RoutePrefix("api/Role")]
     public class RoleController : ApiController
     {
-        // api/Role
+        private IRoleService _roleService;
+
+        public RoleController(IRoleService roleService)
+        {
+            _roleService = roleService;
+        }
+
+        // GET: api/Role
         public IHttpActionResult GetRoles()
         {
-            var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-            var roleManager = new RoleManager<IdentityRole>(roleStore);
-
-            var roles = roleManager.Roles.ToList();
-
-            return this.Ok(roles);
+            return Ok(_roleService.GetAll());
         }
+
+        // DELETE: api/Role/5
+        [HttpDelete]
+        public IHttpActionResult DeleteRole(int id)
+        {
+            RoleDTO roleToDel = _roleService.GetById(id);
+
+            if (roleToDel == null)
+            {
+                return Content(HttpStatusCode.NotFound,
+                    $"Role with id={id} does not exist.");
+            }
+
+            this._roleService.Delete(id);
+
+            return Ok();
+        }
+
+        // POST: api/Role
+        [HttpPost]
+        public IHttpActionResult AddRole([FromBody] RoleBindingModel role)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            RoleDTO newRole = new RoleDTO()
+            {
+                Title = role.Title
+            };
+
+            _roleService.Add(newRole);
+
+            return Ok();
+        }
+
+        // PUT: api/Role/5
+        [HttpPut]
+        public IHttpActionResult UpdateRole(int id, [FromBody] RoleBindingModel role)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            RoleDTO roleToUpdate = _roleService.GetById(id);
+
+            if (roleToUpdate == null)
+            {
+                return Content(HttpStatusCode.NotFound,
+                    $"Role with id={id} does not exist.");
+            }
+
+            RoleDTO newRole = new RoleDTO()
+            {
+                Title = role.Title
+            };
+
+            _roleService.Update(roleToUpdate);
+
+            return Ok();
+        }
+
     }
 }

@@ -20,5 +20,10 @@ namespace DAL_EF.Repositories
             return this.GetManyByPredicate(test => test.CategoryId == id);
         }
 
+        IEnumerable<Test> ITestRepository.GetTestsByTitleKeyWord(string keyWord)
+        {
+            return this.GetManyByPredicate(test => test.Title.Contains(keyWord));
+        }
+
     }
 }

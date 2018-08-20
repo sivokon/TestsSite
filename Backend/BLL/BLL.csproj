@@ -56,13 +56,17 @@
     <Compile Include="DTO\EntityDTO.cs" />
     <Compile Include="DTO\OptionDTO.cs" />
     <Compile Include="DTO\QuestionDTO.cs" />
+    <Compile Include="DTO\RoleDTO.cs" />
     <Compile Include="DTO\TestCategoryDTO.cs" />
     <Compile Include="DTO\TestDTO.cs" />
     <Compile Include="DTO\TestStatDTO.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Infrastructure\MapperModule.cs" />
     <Compile Include="Infrastructure\MapperProfile.cs" />
     <Compile Include="Infrastructure\UnitOfWorkModule.cs" />
     <Compile Include="Intrefaces\IAnswerService.cs" />
+    <Compile Include="Intrefaces\IRoleService.cs" />
+    <Compile Include="Intrefaces\IUserService.cs" />
     <Compile Include="Intrefaces\IOptionService.cs" />
     <Compile Include="Intrefaces\IQuestionService.cs" />
     <Compile Include="Intrefaces\ITestCategoryService.cs" />
@@ -72,9 +76,11 @@
     <Compile Include="Services\AnswerService.cs" />
     <Compile Include="Services\OptionService.cs" />
     <Compile Include="Services\QuestionService.cs" />
+    <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\TestCategoryService.cs" />
     <Compile Include="Services\TestService.cs" />
     <Compile Include="Services\TestStatService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

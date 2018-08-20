@@ -9,7 +9,6 @@ using BLL.Intrefaces;
 
 namespace WebAPI.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/Question")]
     public class QuestionController : ApiController
     {

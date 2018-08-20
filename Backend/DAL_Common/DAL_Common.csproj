@@ -45,19 +45,23 @@
     <Compile Include="Interfaces\IOptionRepository.cs" />
     <Compile Include="Interfaces\IQuestionRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IRoleRepository.cs" />
     <Compile Include="Interfaces\ITestCategoryRepository.cs" />
     <Compile Include="Interfaces\ITestRepository.cs" />
     <Compile Include="Interfaces\ITestStatRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AnswerOption.cs" />
     <Compile Include="Models\CorrectOption.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Option.cs" />
     <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\TestCategory.cs" />
     <Compile Include="Models\TestStat.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

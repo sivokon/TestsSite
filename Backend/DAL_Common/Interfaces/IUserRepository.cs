@@ -7,8 +7,9 @@ using DAL_Common.Models;
 
 namespace DAL_Common.Interfaces
 {
-    public interface ITestCategoryRepository : IRepository<TestCategory>
+    public interface IUserRepository : IRepository<User>
     {
-        IEnumerable<TestCategory> GetCategoriesByTitleKeyWord(string keyWord);
+        User GetUserByName(string name);
+        IEnumerable<User> GetUsersByUsernameKeyWord(string keyWord);
     }
 }

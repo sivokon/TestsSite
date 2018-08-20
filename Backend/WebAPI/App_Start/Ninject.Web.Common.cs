@@ -74,6 +74,9 @@ namespace WebAPI.App_Start
             kernel.Bind<ITestStatService>().To<TestStatService>();
             kernel.Bind<IAnswerService>().To<AnswerService>();
 
+            kernel.Bind<IUserService>().To<UserService>();
+            kernel.Bind<IRoleService>().To<RoleService>();
+
             kernel.Load(new MapperModule(), new UnitOfWorkModule(connectionString));
         }        
     }

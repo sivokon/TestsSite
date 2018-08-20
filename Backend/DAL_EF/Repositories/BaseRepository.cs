@@ -82,13 +82,7 @@ namespace DAL_EF.Repositories
 
         protected T GetSingleByPredicate(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _dbSet;
-
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
-            return query.FirstOrDefault(predicate);
+            return _dbSet.FirstOrDefault(predicate);
         }
 
     }

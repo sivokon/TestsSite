@@ -15,5 +15,7 @@ namespace BLL.Intrefaces
         void Add(TestCategoryDTO entity);
         void Update(TestCategoryDTO entity);
         void Delete(int id);
+
+        IEnumerable<TestCategoryDTO> GetCategoriesByTitleKeyWord(string keyWord);
     }
 }
