@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="DTO\AnswerDTO.cs" />
     <Compile Include="DTO\AnswerOptionDTO.cs" />
-    <Compile Include="DTO\CorrectOptionDTO.cs" />
     <Compile Include="DTO\EntityDTO.cs" />
     <Compile Include="DTO\OptionDTO.cs" />
     <Compile Include="DTO\QuestionDTO.cs" />

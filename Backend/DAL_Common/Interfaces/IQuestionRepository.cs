@@ -10,10 +10,9 @@ namespace DAL_Common.Interfaces
     public interface IQuestionRepository : IRepository<Question>
     {
         IEnumerable<Question> GetQuestionsByTestId(int id);
-        Question GetQuestionByIndexAndTestId(int index, int testId);
-        IEnumerable<Question> GetQuestionsWithOptionsByTestId(int id);
-        IEnumerable<Question> GetQuestionsOrderedByIndexWithOptionsByTestId(int id);
 
-        IEnumerable<Question> GetQuestionWithCorrectOptionsByTestId(int id);
+        Question GetQuestionByIndexAndTestId(int index, int testId);
+
+        IEnumerable<Question> GetQuestionsWithOptionsByTestId(int id);
     }
 }

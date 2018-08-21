@@ -21,7 +21,7 @@ namespace BLL.Services
         }
 
 
-        public IEnumerable<TestStatDTO> GetTestStatisticsWithRelatedTestsByUserId(string id)
+        public IEnumerable<TestStatDTO> GetTestStatisticsWithRelatedTestsByUserId(int id)
         {
             IEnumerable<TestStat> stats = _unitOfWork.TestStatistics.GetTestStatisticsWithRelatedTestsByUserId(id);
             return _mapper.Map<IEnumerable<TestStatDTO>>(stats);

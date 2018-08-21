@@ -31,7 +31,7 @@ namespace BLL.Services
             _unitOfWork.SaveChanges();
         }
 
-        public void Update(int testId, TestDTO entity)
+        public void UpdateWholeTest(int testId, TestDTO entity)
         {
             Test oldVersionTest = _unitOfWork.Tests.GetById(testId);
 
@@ -47,7 +47,13 @@ namespace BLL.Services
             _unitOfWork.Tests.Delete(testId);
 
             _unitOfWork.SaveChanges();
+        }
 
+        public void UpdateTestInfo(TestDTO entity)
+        {
+            Test test = _mapper.Map<Test>(entity);
+            _unitOfWork.Tests.Update(test);
+            _unitOfWork.SaveChanges();
         }
 
         public void Delete(int id)
@@ -110,40 +116,6 @@ namespace BLL.Services
             {
                 options[i].Index = i + 1;
             }
-        }
-
-        //private void SetCorrectAnswers(TestDTO testWithAnsw, Test newAddedTest)
-        //{
-        //    for (int i = 0; i < testWithAnsw.Questions.Count; i++)
-        //    {
-        //        foreach (Question question in newAddedTest.Questions)
-        //        {
-        //            if (testWithAnsw.Questions[i].Index == question.Index)
-        //            {
-        //                for (int j = 0; j < testWithAnsw.Questions[i].Options.Count; j++)
-        //                {
-        //                    foreach (Option option in question.Options)
-        //                    {
-        //                        if (testWithAnsw.Questions[i].Options[j].Index == option.Index)
-        //                        {
-        //                            if (testWithAnsw.Questions[i].Options[j].IsCorrect == true)
-        //                            {
-        //                                question.CorrectOptions.Add(new CorrectOption() { OptionId = option.Id });
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-        private void SetAnswersOfExistingTest(TestDTO testWithAnsw, Test newAddedTest)
-        {
-            //foreach (QuestionDTO newQuestion in testWithAnsw.Questions)
-            //{
-            //    foreach (Question oldQuestion)
-            //}
         }
 
     }

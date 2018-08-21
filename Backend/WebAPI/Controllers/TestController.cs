@@ -87,7 +87,7 @@ namespace WebAPI.Controllers
         // PUT: api/Test/5
         [HttpPut]
         //[Authorize(Roles = "Admin, Editor")]
-        public IHttpActionResult UpdateTest(int id, [FromBody] NewTestBindingModel model)
+        public IHttpActionResult UpdateWholeTest(int id, [FromBody] NewTestBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -102,7 +102,38 @@ namespace WebAPI.Controllers
                     $"Test with id={id} does not exist.");
             }
 
-            _testService.Update(id, _mapper.Map<TestDTO>(model));
+            _testService.UpdateWholeTest(id, _mapper.Map<TestDTO>(model));
+
+            return Ok();
+        }
+
+        [HttpPut]
+        //[Authorize(Roles = "Admin, Editor")]
+        public IHttpActionResult UpdateTestInfo(int id, [FromBody] UpdateTestInfoBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            TestDTO testToUpdate = _testService.GetById(id);
+
+            if (testToUpdate == null)
+            {
+                return Content(HttpStatusCode.NotFound,
+                    $"Test with id={id} does not exist.");
+            }
+
+            TestDTO updatedTest = new TestDTO()
+            {
+                Id = id,
+                Title = model.Title,
+                Descr = model.Descr,
+                DurationMin = model.DurationMin,
+                CategoryId = model.CategoryId
+            };
+
+            _testService.UpdateTestInfo(updatedTest);
 
             return Ok();
         }

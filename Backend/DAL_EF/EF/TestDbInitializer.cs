@@ -133,21 +133,6 @@ namespace DAL_EF.EF
             //options.ForEach(x => context.Options.Add(x));
 
 
-            List<CorrectOption> correctOptions = new List<CorrectOption>()
-            {
-                new CorrectOption() { QuestionId = 1, OptionId = 1 },
-                new CorrectOption() { QuestionId = 2, OptionId = 4 },
-                new CorrectOption() { QuestionId = 3, OptionId = 7 },
-                new CorrectOption() { QuestionId = 4, OptionId = 10 },
-                new CorrectOption() { QuestionId = 5, OptionId = 13 },
-                new CorrectOption() { QuestionId = 6, OptionId = 16 },
-                new CorrectOption() { QuestionId = 7, OptionId = 19 },
-                new CorrectOption() { QuestionId = 8, OptionId = 22 },
-                new CorrectOption() { QuestionId = 9, OptionId = 25 },
-            };
-            correctOptions.ForEach(x => context.CorrectOptions.Add(x));
-
-
             List<Role> roles = new List<Role>()
             {
                 new Role() { Id = 1, Title = "Admin" },

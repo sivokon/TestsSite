@@ -9,10 +9,14 @@ namespace DAL_Common.Interfaces
 {
     public interface ITestStatRepository : IRepository<TestStat>
     {
-        IEnumerable<TestStat> GetTestStatisticsWithRelatedTestsByUserId(string id);
+        IEnumerable<TestStat> GetTestStatisticsWithRelatedTestsByUserId(int id);
+
         IEnumerable<TestStat> GetTestStatisticsWithAnswersByTestId(int id);
-        void DeleteNotFinishedTestStatisticsByUserId(string id);
-        TestStat GetNotFinishedTestByUserId(string id);
+
+        void DeleteNotFinishedTestStatisticsByUserId(int id);
+
+        TestStat GetNotFinishedTestByUserId(int id);
+
         void UpdateRange(IEnumerable<TestStat> statsToUpdate);
     }
 }

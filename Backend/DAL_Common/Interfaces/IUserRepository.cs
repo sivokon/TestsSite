@@ -10,6 +10,7 @@ namespace DAL_Common.Interfaces
     public interface IUserRepository : IRepository<User>
     {
         User GetUserByName(string name);
+
         IEnumerable<User> GetUsersByUsernameKeyWord(string keyWord);
     }
 }

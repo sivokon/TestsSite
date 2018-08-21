@@ -14,6 +14,6 @@ namespace BLL.Intrefaces
         void StartTest(TestStatDTO entity);
         void SaveCompletedTest(TestStatDTO entity);
 
-        IEnumerable<TestStatDTO> GetTestStatisticsWithRelatedTestsByUserId(string id);
+        IEnumerable<TestStatDTO> GetTestStatisticsWithRelatedTestsByUserId(int id);
     }
 }

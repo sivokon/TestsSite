@@ -70,27 +70,5 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
-        //// POST: api/User
-        //[HttpPost]
-        //public IHttpActionResult AddUserRoles([FromBody] AddUserRolesBindingModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        BadRequest(ModelState);
-        //    }
-
-        //    UserDTO user = _userService.GetById(model.UserId);
-
-        //    if (user == null)
-        //    {
-        //        return Content(HttpStatusCode.NotFound,
-        //            "Can't add roles to user that does not exist");
-        //    }
-
-        //    _userManager.
-
-
-        //}
-
     }
 }

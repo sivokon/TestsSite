@@ -23,14 +23,11 @@ namespace WebAPI.Models
         public int DurationMin { get; set; }
 
         [Required]
-        public List<NewQuestionBindingModel> Questions { get; set; }    
+        public List<NewTestQuestionBindingModel> Questions { get; set; }    
     }
 
-    public class NewQuestionBindingModel
+    public class NewTestQuestionBindingModel
     {
-        //[Required]
-        //public int TestId { get; set; }
-
         [Required]
         [StringLength(1500, ErrorMessage = "Too long question. Question can not contain more than {1} characters")]
         public string Body { get; set; }
@@ -40,26 +37,11 @@ namespace WebAPI.Models
         public int Index { get; set; }
 
         [Required]
-        public List<NewOptionBindingModel>  Options { get; set; }
-
-        //[Required]
-        //public List<NewCorrectOption> CorrectOptions { get; set; }
+        public List<NewTestOptionBindingModel>  Options { get; set; }
     }
 
-    //public class NewCorrectOption
-    //{
-    //    [Required]
-    //    public int OptionId { get; set; }
-
-    //    //[Required]
-    //    //public int QuestionId { get; set; }
-    //}
-
-    public class NewOptionBindingModel
+    public class NewTestOptionBindingModel
     {
-        //[Required]
-        //public int QuestionId { get; set; }
-
         [Required]
         [StringLength(500, ErrorMessage = "Too long option. Option can not contain more than {1} characters")]
         public string Body { get; set; }
@@ -70,6 +52,23 @@ namespace WebAPI.Models
 
         [Required]
         public bool IsCorrect { get; set; }
+    }
+
+    public class UpdateTestInfoBindingModel
+    {
+        [Required]
+        [StringLength(50, ErrorMessage = "Too long test title. Test title can not contain more than {1} characters")]
+        public string Title { get; set; }
+
+        [Required]
+        public int CategoryId { get; set; }
+
+        [StringLength(2000, ErrorMessage = "Too long test description. Description can not contain more than {1} characters")]
+        public string Descr { get; set; }
+
+        [Required]
+        [Range(1, 200, ErrorMessage = "The duration of test can range only from {1} to {2} minutes")]
+        public int DurationMin { get; set; }
     }
 
 }

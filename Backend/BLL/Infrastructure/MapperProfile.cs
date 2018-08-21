@@ -26,8 +26,6 @@ namespace BLL.Infrastructure
 
             this.CreateMap<AnswerOption, AnswerOptionDTO>().ReverseMap();
 
-            this.CreateMap<CorrectOption, CorrectOptionDTO>().ReverseMap();
-
             this.CreateMap<User, UserDTO>().ReverseMap();
 
             this.CreateMap<Role, RoleDTO>().ReverseMap();

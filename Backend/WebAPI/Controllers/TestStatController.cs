@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
         [Route("WithTests/byUser")]
         public IHttpActionResult GetTestStatisticsWithRelatedTestsByUserId()
         {
-            string userId = User.Identity.GetUserId();
+            int userId = int.Parse(User.Identity.GetUserId());
             return this.Ok(_testStatService.GetTestStatisticsWithRelatedTestsByUserId(userId));
         }
 
@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
             TestStatDTO newTestStat = new TestStatDTO()
             {
                 TestId = stat.TestId,
-                UserId = User.Identity.GetUserId(),
+                UserId = int.Parse(User.Identity.GetUserId()),
             };
             _testStatService.StartTest(newTestStat);
 
@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
             TestStatDTO testStat = new TestStatDTO()
             {
                 TestId = stat.TestId,
-                UserId = User.Identity.GetUserId(),
+                UserId = int.Parse(User.Identity.GetUserId()),
                 Answers = stat.Answers
             };
             _testStatService.SaveCompletedTest(testStat);

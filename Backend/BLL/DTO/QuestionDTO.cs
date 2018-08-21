@@ -13,7 +13,5 @@ namespace BLL.DTO
         public int TestId { get; set; }
 
         public List<OptionDTO> Options { get; set; }
-
-        public List<CorrectOptionDTO> CorrectOptions { get; set; }
     }
 }

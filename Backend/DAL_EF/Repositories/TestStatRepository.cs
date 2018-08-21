@@ -16,7 +16,7 @@ namespace DAL_EF.Repositories
         {
         }
 
-        IEnumerable<TestStat> ITestStatRepository.GetTestStatisticsWithRelatedTestsByUserId(string id)
+        IEnumerable<TestStat> ITestStatRepository.GetTestStatisticsWithRelatedTestsByUserId(int id)
         {
             return this.GetManyByPredicate(testStat => testStat.UserId == id, 
                                            testStat => testStat.Test);
@@ -28,14 +28,14 @@ namespace DAL_EF.Repositories
                                            testStat => testStat.Answers);
         }
 
-        void ITestStatRepository.DeleteNotFinishedTestStatisticsByUserId(string id)
+        void ITestStatRepository.DeleteNotFinishedTestStatisticsByUserId(int id)
         {
             IEnumerable<TestStat> testStatsOfUser = this._dbSet.Where(testStat => testStat.UserId == id && 
                                                                       testStat.EndTime == SqlDateTime.MinValue.Value);
             this._dbSet.RemoveRange(testStatsOfUser);
         }
 
-        TestStat ITestStatRepository.GetNotFinishedTestByUserId(string id)
+        TestStat ITestStatRepository.GetNotFinishedTestByUserId(int id)
         {
             return this.GetSingleByPredicate(testStat => testStat.UserId == id && 
                                              testStat.EndTime == SqlDateTime.MinValue.Value);

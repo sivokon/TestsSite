@@ -15,6 +15,5 @@ namespace DAL_Common.Models
         public virtual Test Test { get; set; }
 
         public ICollection<Option> Options { get; set; }
-        public ICollection<CorrectOption> CorrectOptions { get; set; }
     }
 }

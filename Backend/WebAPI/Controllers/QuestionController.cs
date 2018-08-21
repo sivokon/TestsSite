@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using BLL.DTO;
 using BLL.Intrefaces;
+using WebAPI.Models;
+using AutoMapper;
 
 namespace WebAPI.Controllers
 {
@@ -13,10 +15,17 @@ namespace WebAPI.Controllers
     public class QuestionController : ApiController
     {
         private IQuestionService _questionService;
+        private IMapper _mapper;
 
         public QuestionController(IQuestionService questionService)
         {
             _questionService = questionService;
+        }
+
+        public QuestionController(IQuestionService questionService, IMapper mapper)
+        {
+            _questionService = questionService;
+            _mapper = mapper;
         }
 
         // GET: api/Question/byTest/5
@@ -46,25 +55,51 @@ namespace WebAPI.Controllers
         [Route("WithOptions/byTest/{id}")]
         public IHttpActionResult GetQuestionsWithRelatedOptionsByTestId(int id)
         {
-            return this.Ok(_questionService.GetQuestionsWithRelatedOptionsByTestId(id));
+            IEnumerable<QuestionDTO> questionByTest = _questionService.GetQuestionsWithRelatedOptionsByTestId(id);
+            return this.Ok(questionByTest);
         }
-
 
 
         // POST: api/Question
         [HttpPost]
         [Authorize(Roles = "Admin, Editor")]
-        public IHttpActionResult CreateQuestion([FromBody] QuestionDTO question)
+        public IHttpActionResult CreateQuestion([FromBody] QuestionBindingModel model)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            QuestionDTO newQuestion = _mapper.Map<QuestionDTO>(model);
+
+            this._questionService.Add(newQuestion);
+
+            return Ok();
         }
 
         // PUT: api/Question/5
         [HttpPut]
         [Authorize(Roles = "Admin, Editor")]
-        public IHttpActionResult UpdateQuestion(int id, [FromBody] QuestionDTO question)
+        public IHttpActionResult UpdateQuestion(int id, [FromBody] QuestionBindingModel model)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            QuestionDTO questionToUpdate = this._questionService.GetById(id);
+
+            if (questionToUpdate == null)
+            {
+                return Content(HttpStatusCode.NotFound,
+                    $"Test category with id={id} does not exist.");
+            }
+
+            QuestionDTO updatedQuestion = _mapper.Map<QuestionDTO>(model);
+
+            this._questionService.Update(updatedQuestion);
+
+            return Ok();
         }
 
         // DELETE: api/Question/5
@@ -72,7 +107,17 @@ namespace WebAPI.Controllers
         [Authorize(Roles = "Admin, Editor")]
         public IHttpActionResult DeleteQuestion(int id)
         {
-            throw new NotImplementedException();
+            QuestionDTO questionToDel = this._questionService.GetById(id);
+
+            if (questionToDel == null)
+            {
+                return Content(HttpStatusCode.NotFound,
+                    $"Question with id={id} does not exist.");
+            }
+
+            this._questionService.Delete(id);
+
+            return Ok();
         }
 
     }

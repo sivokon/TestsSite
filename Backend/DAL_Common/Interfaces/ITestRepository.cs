@@ -10,6 +10,7 @@ namespace DAL_Common.Interfaces
     public interface ITestRepository : IRepository<Test>
     {
         IEnumerable<Test> GetTestsByCategoryId(int id);
+
         IEnumerable<Test> GetTestsByTitleKeyWord(string keyWord);
     }
 }

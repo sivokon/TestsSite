@@ -16,6 +16,7 @@ namespace BLL.Intrefaces
         void Delete(int id);
 
         UserDTO GetUserByName(string name);
+
         IEnumerable<UserDTO> GetUsersByUsernameKeyWord(string keyWord);
     }
 }

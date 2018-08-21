@@ -39,6 +39,12 @@ namespace BLL.Services
             _unitOfWork.SaveChanges();
         }
 
+        public QuestionDTO GetById(int id)
+        {
+            Question question = _unitOfWork.Questions.GetById(id);
+            return _mapper.Map<QuestionDTO>(question);
+        }
+
         public IEnumerable<QuestionDTO> GetQuestionsByTestId(int id)
         {
             IEnumerable<Question> questions = _unitOfWork.Questions.GetQuestionsByTestId(id);

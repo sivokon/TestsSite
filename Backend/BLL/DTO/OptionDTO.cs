@@ -10,7 +10,7 @@ namespace BLL.DTO
     {
         public string Body { get; set; }
         public int Index { get; set; }
-        public bool IsCorrect { get; set; }
         public int QuestionId { get; set; }
+        public bool IsCorrect { get; set; }
     }
 }
