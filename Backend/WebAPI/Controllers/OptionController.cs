@@ -30,11 +30,11 @@ namespace WebAPI.Controllers
 
         // GET: api/Option/byQuestion/5
         [Route("byQuestion/{id}")]
-        public IHttpActionResult getOptionsByQuestionId(int id)
+        public IHttpActionResult GetOptionsByQuestionId(int id)
         {
             IEnumerable<OptionDTO> optionsByQuestion = _optionService.GetOptionsByQuestionId(id);
             IEnumerable<OptionViewModel> viewModelOptions = _mapper.Map<IEnumerable<OptionViewModel>>(optionsByQuestion);
-            return Ok(optionsByQuestion);
+            return Ok(viewModelOptions);
         }
 
 

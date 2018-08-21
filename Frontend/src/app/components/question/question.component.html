@@ -15,9 +15,9 @@
     </div>
   </form>
 
-  <a *ngIf="question.Index > 1"
+  <button *ngIf="question.Index > 1"
      (click)="getQuestion(question.Index - 1)"       
-     class="btn btn-default">< back</a>
+     class="btn btn-default">< back</button>
 
   <span *ngIf="question.Index == dataService.numOfQuestions; else nextBtnBlock">
     <button class="btn btn-default"
@@ -28,8 +28,8 @@
   </span>
 
   <ng-template #nextBtnBlock>
-    <a (click)="getQuestion(question.Index + 1)"        
-       class="btn btn-default">next ></a>
+    <button (click)="getQuestion(question.Index + 1)"        
+       class="btn btn-default">next ></button>
   </ng-template>
 
   <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>

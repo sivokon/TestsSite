@@ -1,11 +1,11 @@
 
 <div class="testCategoriesBlock">
 
-    <h4>Choose test category:</h4>
+    <h3>Choose test category:</h3>
     <div>
       <ul>
         <li *ngFor="let category of testCategories">
-          <a routerLink="/testCategoryDetails/{{category.Id}}">{{category.Id}} - {{category.Title}}</a>
+          <a routerLink="/testCategoryDetails/{{category.Id}}">{{category.Title}}</a>
         </li>
       </ul>
     </div>

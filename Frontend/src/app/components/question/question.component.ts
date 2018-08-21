@@ -67,7 +67,6 @@ export class QuestionComponent implements OnInit {
     }
     const answer: AnswerModel = {
       QuestionId: this.question.Id,
-      //OptionId: optionId,
       AnswerOptions: [answerOption],
       PointValue: 0
     }

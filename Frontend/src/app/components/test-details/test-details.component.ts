@@ -70,9 +70,10 @@ export class TestDetailsComponent implements OnInit {
             this.time.sec--;
           }
         },
+        () => { },
         () => {
           this.dataService.endTime = new Date();
-          this.dataService.sendFinishedTestData();
+          this.dataService.sendFinishedTestData().subscribe();
         });
   }
 

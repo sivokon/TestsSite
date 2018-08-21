@@ -36,7 +36,10 @@ export class RegistrationComponent implements OnInit {
     this.errorMessage = '';
     this.authService.registerUser(form.value)
       .subscribe(
-        () => this.router.navigate(['/login']),
+        () => {
+          alert("You registered succesfully")
+          this.resetForm(form);
+        },
         (err => {
           this.errorMessage = err.message;
           this.resetForm(form);

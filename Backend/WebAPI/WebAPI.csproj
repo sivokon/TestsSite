@@ -292,7 +292,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\OptionModels.cs" />
-    <Compile Include="Models\QuestionBindingModels.cs" />
+    <Compile Include="Models\QuestionModels.cs" />
     <Compile Include="Models\TestBindingModels.cs" />
     <Compile Include="Models\TestCategoryBindingModels.cs" />
     <Compile Include="Models\TestStatBindingModels.cs" />

@@ -15,8 +15,8 @@ export class TestDetailsQuestionDataService {
     Answers: []
   }
 
-  startTime: Date;
-  endTime: Date;
+  startTime: Date = null;
+  endTime: Date = null;
 
   constructor(private http: HttpClient) { }
 

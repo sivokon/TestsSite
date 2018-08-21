@@ -1,11 +1,11 @@
 
 <div class="testsListBlock">
 
-    <h4>Choose test:</h4>
+    <h3>Choose test:</h3>
     <div>
       <ul>
         <li *ngFor="let test of tests">
-          <a routerLink="/testDetails/{{test.Id}}">{{test.Title}} - {{test.Descr}} - {{test.DurationMin}}</a>
+          <a routerLink="/testDetails/{{test.Id}}">{{test.Title}}</a>
         </li>
       </ul>
     </div>

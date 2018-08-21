@@ -12,15 +12,19 @@ namespace WebAPI.Infrastructure
     {
         public WebApiMapperProfile()
         {
-            this.CreateMap<TestDTO, NewTestBindingModel>();
+            this.CreateMap<TestDTO, NewTestBindingModel>().ReverseMap();
 
-            this.CreateMap<QuestionDTO, NewTestQuestionBindingModel>();            
+            this.CreateMap<QuestionDTO, NewQuestionBindingModel>().ReverseMap();            
 
-            this.CreateMap<QuestionDTO, QuestionBindingModel>();
+            this.CreateMap<QuestionDTO, QuestionBindingModel>().ReverseMap();
 
-            this.CreateMap<OptionDTO, NewTestOptionBindingModel>();
+            this.CreateMap<QuestionDTO, QuestionViewModel>().ReverseMap();
 
-            this.CreateMap<OptionDTO, OptionBindingModel>();
+            this.CreateMap<OptionDTO, NewOptionBindingModel>().ReverseMap();
+
+            this.CreateMap<OptionDTO, OptionBindingModel>().ReverseMap();
+
+            this.CreateMap<OptionDTO, OptionViewModel>().ReverseMap();
         }
     }
 }

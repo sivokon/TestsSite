@@ -87,6 +87,7 @@ namespace WebAPI.Controllers
         // PUT: api/Test/5
         [HttpPut]
         //[Authorize(Roles = "Admin, Editor")]
+        [Route("UpdateWhole/{id}")]
         public IHttpActionResult UpdateWholeTest(int id, [FromBody] NewTestBindingModel model)
         {
             if (!ModelState.IsValid)

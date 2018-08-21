@@ -33,7 +33,8 @@ namespace WebAPI.Controllers
         public IHttpActionResult GetQuestionsByTestId(int id)
         {
             IEnumerable<QuestionDTO> questionsByTest = questionsByTest = _questionService.GetQuestionsByTestId(id);
-            return this.Ok(questionsByTest);
+            IEnumerable<QuestionViewModel> questionsViewModel = _mapper.Map<IEnumerable<QuestionViewModel>>(questionsByTest);
+            return this.Ok(questionsViewModel);
         }
 
         // GET: api/Question/5/byTest/5
@@ -56,7 +57,8 @@ namespace WebAPI.Controllers
         public IHttpActionResult GetQuestionsWithRelatedOptionsByTestId(int id)
         {
             IEnumerable<QuestionDTO> questionByTest = _questionService.GetQuestionsWithRelatedOptionsByTestId(id);
-            return this.Ok(questionByTest);
+            IEnumerable<QuestionViewModel> questionsViewModel = _mapper.Map<IEnumerable<QuestionViewModel>>(questionByTest);
+            return this.Ok(questionsViewModel);
         }
 
 

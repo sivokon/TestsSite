@@ -20,6 +20,15 @@ namespace WebAPI.Models
         public int Index { get; set; }
 
         [Required]
-        public List<NewTestOptionBindingModel> Options { get; set; }
+        public List<NewOptionBindingModel> Options { get; set; }
     }
+
+    public class QuestionViewModel
+    {
+        public int TestId { get; set; }
+        public string Body { get; set; }
+        public int Index { get; set; }
+        public List<OptionViewModel> Options { get; set; }
+    }
+
 }

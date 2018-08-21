@@ -6,8 +6,8 @@
     <p>{{test.Descr}}</p>
     <p>Duration: {{test.DurationMin}} minutes</p>
     <p>Number of questions: {{dataService.numOfQuestions}}</p>
-    <a class="btn btn-default" (click)="onBtnClickGoBack()">< Back</a>
-    <a class="btn btn-default" (click)="onClickStartTest()">Start test</a>
+    <button class="btn btn-default" (click)="onBtnClickGoBack()">< Back</button>
+    <button class="btn btn-default" (click)="onClickStartTest()">Start test</button>
   </div>
   
   <div *ngIf="testStarted()">
