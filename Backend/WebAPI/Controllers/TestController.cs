@@ -9,6 +9,7 @@ using BLL.Intrefaces;
 using Microsoft.AspNet.Identity;
 using WebAPI.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using AutoMapper;
 
 namespace WebAPI.Controllers
 {    
@@ -16,13 +17,20 @@ namespace WebAPI.Controllers
     public class TestController : ApiController
     {
         private ITestService _testService;
+        private IMapper _mapper;
 
         public TestController(ITestService testService)
         {
             _testService = testService;
         }
 
-        // GER: api/Test/5
+        public TestController(ITestService testService, IMapper mapper)
+        {
+            _testService = testService;
+            _mapper = mapper;
+        }
+
+        // GET: api/Test/5
         public IHttpActionResult GetTest(int id)
         {
             TestDTO test = _testService.GetById(id);
@@ -40,16 +48,7 @@ namespace WebAPI.Controllers
         [Route("byCategory/{Id}")]
         public IHttpActionResult GetTestsByCategoryId(int id)
         {
-            IEnumerable<TestDTO> testsByCategory;
-            try
-            {
-                testsByCategory = _testService.GetTestsByCategoryId(id);
-            }
-            catch
-            {
-                return InternalServerError();
-            }
-
+            IEnumerable<TestDTO> testsByCategory = _testService.GetTestsByCategoryId(id);
             return Ok(testsByCategory);
         }
 
@@ -63,26 +62,67 @@ namespace WebAPI.Controllers
 
         // POST: api/Test
         [HttpPost]
-        [Authorize(Roles = "Admin, Editor")]
-        public IHttpActionResult CreateTest([FromBody] TestDTO test)
+        //[Authorize(Roles = "Admin, Editor")]
+        public IHttpActionResult CreateTest([FromBody] NewTestBindingModel model)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            TestDTO newTest = new TestDTO()
+            {
+                Title = model.Title,
+                CategoryId = model.CategoryId,
+                Descr = model.Descr,
+                DurationMin = model.DurationMin,
+                Questions = _mapper.Map<List<QuestionDTO>>(model.Questions)
+            };
+
+            _testService.Add(newTest);
+
+            return Ok(newTest);
         }
 
         // PUT: api/Test/5
         [HttpPut]
-        [Authorize(Roles = "Admin, Editor")]
-        public IHttpActionResult UpdateTest(int id, [FromBody] TestDTO test)
+        //[Authorize(Roles = "Admin, Editor")]
+        public IHttpActionResult UpdateTest(int id, [FromBody] NewTestBindingModel model)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            TestDTO testToUpdate = _testService.GetById(id);
+
+            if (testToUpdate == null)
+            {
+                return Content(HttpStatusCode.NotFound,
+                    $"Test with id={id} does not exist.");
+            }
+
+            _testService.Update(id, _mapper.Map<TestDTO>(model));
+
+            return Ok();
         }
 
         // DELETE: api/Test/5
         [HttpDelete]
-        [Authorize(Roles = "Admin, Editor")]
+        //[Authorize(Roles = "Admin, Editor")]
         public IHttpActionResult DeleteTest(int id)
         {
-            throw new NotImplementedException();
+            TestDTO testToDel = _testService.GetById(id);
+
+            if (testToDel == null)
+            {
+                return Content(HttpStatusCode.NotFound,
+                    $"Test with id={id} does not exist.");
+            }
+
+            _testService.Delete(id);
+
+            return Ok();
         }
 
     }

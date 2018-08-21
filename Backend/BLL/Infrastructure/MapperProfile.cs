@@ -13,7 +13,7 @@ namespace BLL.Infrastructure
             this.CreateMap<TestCategory, TestCategoryDTO>().ReverseMap();
 
             this.CreateMap<Question, QuestionDTO>()
-                .ForMember(quesDTO => quesDTO.Options, x => x.MapFrom(ques => ques.Options))                   
+                .ForMember(quesDTO => quesDTO.Options, x => x.MapFrom(ques => ques.Options))
                 .ReverseMap();
 
             this.CreateMap<Option, OptionDTO>().ReverseMap();

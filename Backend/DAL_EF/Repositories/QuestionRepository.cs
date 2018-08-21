@@ -26,10 +26,17 @@ namespace DAL_EF.Repositories
             return this.GetManyByPredicate(question => question.TestId == id);            
         }
 
-        IEnumerable<Question> IQuestionRepository.GetQuestionsWithRelatedOptionsByTestId(int id)
+        IEnumerable<Question> IQuestionRepository.GetQuestionsWithOptionsByTestId(int id)
         {
             return this.GetManyByPredicate(question => question.TestId == id,
                                                        question => question.Options);
+        }
+
+        IEnumerable<Question> IQuestionRepository.GetQuestionsOrderedByIndexWithOptionsByTestId(int id)
+        {
+            return this._dbSet.Include(question => question.Options)
+                              .Where(question => question.TestId == id)
+                              .OrderBy(question => question.Index);
         }
 
         IEnumerable<Question> IQuestionRepository.GetQuestionWithCorrectOptionsByTestId(int id)

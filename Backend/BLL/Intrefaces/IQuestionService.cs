@@ -10,8 +10,6 @@ namespace BLL.Intrefaces
 {
     public interface IQuestionService
     {
-        //IEnumerable<Question> GetAll();
-        QuestionDTO GetById(int id);
         void Add(QuestionDTO entity);
         void Update(QuestionDTO entity);
         void Delete(int id);

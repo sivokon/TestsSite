@@ -61,8 +61,8 @@
     <Compile Include="DTO\TestDTO.cs" />
     <Compile Include="DTO\TestStatDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
-    <Compile Include="Infrastructure\MapperModule.cs" />
     <Compile Include="Infrastructure\MapperProfile.cs" />
+    <Compile Include="Infrastructure\ServicesModule.cs" />
     <Compile Include="Infrastructure\UnitOfWorkModule.cs" />
     <Compile Include="Intrefaces\IAnswerService.cs" />
     <Compile Include="Intrefaces\IRoleService.cs" />

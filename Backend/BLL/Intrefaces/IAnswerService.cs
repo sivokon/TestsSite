@@ -10,13 +10,6 @@ namespace BLL.Intrefaces
 {
     public interface IAnswerService
     {
-        //IEnumerable<Answer> GetAll();
-        AnswerDTO GetById(int id);
-        void Add(AnswerDTO entity);
-        //void Update(T entity);
-        //void Delete(int id);
-
-        //IEnumerable<AnswerDTO> GetAnswersByTestStatisticId(int id);
         IEnumerable<AnswerDTO> GetAnswersWithAnswerOptionsByTestStatisticId(int id);
     }
 }

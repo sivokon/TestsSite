@@ -13,5 +13,7 @@ namespace BLL.DTO
         public DateTime CreationDate { get; set; }
         public int DurationMin { get; set; }
         public int CategoryId { get; set; }
+
+        public List<QuestionDTO> Questions { get; set; }
     }
 }

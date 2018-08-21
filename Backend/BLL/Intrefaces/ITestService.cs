@@ -13,7 +13,7 @@ namespace BLL.Intrefaces
         IEnumerable<TestDTO> GetAll();
         TestDTO GetById(int id);
         void Add(TestDTO entity);
-        void Update(TestDTO entity);
+        void Update(int testId, TestDTO entity);
         void Delete(int id);
 
         IEnumerable<TestDTO> GetTestsByCategoryId(int id);

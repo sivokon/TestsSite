@@ -19,8 +19,6 @@ namespace WebAPI.Controllers
         private IUserService _userService;
         private IRoleService _roleService;
 
-        private ApplicationUserManager _userManager;
-
         public UserController(IUserService userService, IRoleService roleService)
         {
             _userService = userService;

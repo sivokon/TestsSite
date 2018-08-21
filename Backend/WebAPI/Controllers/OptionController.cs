@@ -24,30 +24,11 @@ namespace WebAPI.Controllers
         [Route("byQuestion/{id}")]
         public IHttpActionResult getOptionsByQuestionId(int id)
         {
-            IEnumerable<OptionDTO> optionsByQuestion;
-            try
-            {
-                optionsByQuestion = _optionService.GetOptionsByQuestionId(id);
-            }
-            catch
-            {
-                return InternalServerError();
-            }
-
+            IEnumerable<OptionDTO> optionsByQuestion = _optionService.GetOptionsByQuestionId(id);
             return Ok(optionsByQuestion);
         }
 
-        //// GET: api/Option
-        //public IHttpActionResult GetOptions()
-        //{
-        //    throw new NotImplementedException();
-        //}
 
-        //// GET: api/Option/5
-        //public IHttpActionResult GetOption(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         // POST: api/Option
         [HttpPost]

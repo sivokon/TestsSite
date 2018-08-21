@@ -11,17 +11,9 @@ namespace BLL.Intrefaces
 {
     public interface ITestStatService
     {
-        //IEnumerable<TestStat> GetAll();
-        TestStatDTO GetById(int id);
-        //void Add(TestStatDTO entity);
-        //void Update(TestStatDTO entity);
-        //void Delete(int id);
-
         void StartTest(TestStatDTO entity);
         void SaveCompletedTest(TestStatDTO entity);
 
-        IEnumerable<TestStatDTO> GetTestStatisticsByUserId(string id);
         IEnumerable<TestStatDTO> GetTestStatisticsWithRelatedTestsByUserId(string id);
-        TestStatDTO GetNotFinishedTestByUserId(string id);
     }
 }

@@ -22,13 +22,6 @@ namespace WebAPI.Controllers
             _testStatService = testStatService;
         }
 
-        //[Route("byUser")]
-        //public IHttpActionResult GetTestStatisticsByUserId()
-        //{
-        //    string userId = User.Identity.GetUserId();
-        //    return this.Ok(_testStatService.GetTestStatisticsByUserId(userId));
-        //}
-
         // GET: api/TestStat/WithTests/byUser
         [Route("WithTests/byUser")]
         public IHttpActionResult GetTestStatisticsWithRelatedTestsByUserId()
@@ -45,7 +38,6 @@ namespace WebAPI.Controllers
             {
                 TestId = stat.TestId,
                 UserId = User.Identity.GetUserId(),
-                StartTime = DateTime.Now,
             };
             _testStatService.StartTest(newTestStat);
 
@@ -60,7 +52,6 @@ namespace WebAPI.Controllers
             {
                 TestId = stat.TestId,
                 UserId = User.Identity.GetUserId(),
-                EndTime = DateTime.Now,
                 Answers = stat.Answers
             };
             _testStatService.SaveCompletedTest(testStat);

@@ -349,15 +349,13 @@ namespace WebAPI.Controllers
                 return GetErrorResult(result);
             }
 
-            UserManager.AddToRole(UserManager.FindByName(model.Email).Id, "User");
+            int newUserId = UserManager.FindByName(model.Email).Id;
+            IdentityResult addToRoleResult = UserManager.AddToRole(newUserId, "User");
 
-            //int newUserId = UserManager.FindByName(model.Email).Id;
-            //IdentityResult addToRoleResult = UserManager.AddToRole(newUserId, "User");
-
-            //if (!addToRoleResult.Succeeded)
-            //{
-            //    return GetErrorResult(result);
-            //}
+            if (!addToRoleResult.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
 
             return Ok();
         }

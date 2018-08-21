@@ -10,8 +10,6 @@ namespace BLL.Intrefaces
 {
     public interface IOptionService
     {
-        //IEnumerable<Option> GetAll();
-        OptionDTO GetById(int id);
         void Add(OptionDTO entity);
         void Update(OptionDTO entity);
         void Delete(int id);

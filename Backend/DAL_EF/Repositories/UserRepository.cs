@@ -42,7 +42,7 @@ namespace DAL_EF.Repositories
 
             _context.Entry(userToUpdate).CurrentValues.SetValues(user);
 
-            userToUpdate.Roles = user.Roles.Select(r => this._context.Roles.Find(r.Id)).ToList();
+            userToUpdate.Roles = user.Roles.Select(role => this._context.Roles.Find(role.Id)).ToList();
         }
 
     }

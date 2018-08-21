@@ -32,26 +32,26 @@ namespace WebAPI
                     (IUserService)DependencyResolver.Current.GetService(typeof(IUserService)),
                     (IRoleService)DependencyResolver.Current.GetService(typeof(IRoleService))));
 
-            //// Configure validation logic for usernames
-            //manager.UserValidator = new UserValidator<CustomIdentityUser, int>(manager)
-            //{
-            //    AllowOnlyAlphanumericUserNames = false,
-            //    RequireUniqueEmail = true
-            //};
-            //// Configure validation logic for passwords
-            //manager.PasswordValidator = new PasswordValidator
-            //{
-            //    RequiredLength = 6,
-            //    RequireNonLetterOrDigit = true,
-            //    RequireDigit = true,
-            //    RequireLowercase = true,
-            //    RequireUppercase = true,
-            //};
-            //var dataProtectionProvider = options.DataProtectionProvider;
-            //if (dataProtectionProvider != null)
-            //{
-            //    manager.UserTokenProvider = new DataProtectorTokenProvider<CustomIdentityUser, int>(dataProtectionProvider.Create("ASP.NET Identity"));
-            //}
+            // Configure validation logic for usernames
+            manager.UserValidator = new UserValidator<CustomIdentityUser, int>(manager)
+            {
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = false
+            };
+            // Configure validation logic for passwords
+            manager.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 6,
+                RequireNonLetterOrDigit = true,
+                RequireDigit = true,
+                RequireLowercase = true,
+                RequireUppercase = true,
+            };
+            var dataProtectionProvider = options.DataProtectionProvider;
+            if (dataProtectionProvider != null)
+            {
+                manager.UserTokenProvider = new DataProtectorTokenProvider<CustomIdentityUser, int>(dataProtectionProvider.Create("ASP.NET Identity"));
+            }
             return manager;
         }
     }

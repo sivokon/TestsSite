@@ -39,12 +39,6 @@ namespace BLL.Services
             _unitOfWork.SaveChanges();
         }
 
-        public OptionDTO GetById(int id)
-        {
-            Option option = _unitOfWork.Options.GetById(id);
-            return _mapper.Map<OptionDTO>(option);
-        }
-
         public IEnumerable<OptionDTO> GetOptionsByQuestionId(int id)
         {
             IEnumerable<Option> options = _unitOfWork.Options.GetOptionsByQuestionId(id);

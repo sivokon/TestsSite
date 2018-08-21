@@ -23,15 +23,7 @@ namespace WebAPI.Controllers
         [Route("byTest/{id}")]
         public IHttpActionResult GetQuestionsByTestId(int id)
         {
-            IEnumerable<QuestionDTO> questionsByTest;
-            try
-            {
-                questionsByTest = _questionService.GetQuestionsByTestId(id);
-            }
-            catch
-            {
-                return InternalServerError();
-            }
+            IEnumerable<QuestionDTO> questionsByTest = questionsByTest = _questionService.GetQuestionsByTestId(id);
             return this.Ok(questionsByTest);
         }
 
@@ -57,17 +49,7 @@ namespace WebAPI.Controllers
             return this.Ok(_questionService.GetQuestionsWithRelatedOptionsByTestId(id));
         }
 
-        //// GET: api/Question
-        //public IHttpActionResult GetQuestions()
-        //{
-        //    throw new NotImplementedException();
-        //}
 
-        //// GET: api/Question/5
-        //public IHttpActionResult GetQuestion(int id)
-        //{
-        //    return this.Ok(_questionService.GetById(id));
-        //}
 
         // POST: api/Question
         [HttpPost]

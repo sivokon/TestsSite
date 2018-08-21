@@ -39,12 +39,6 @@ namespace BLL.Services
             _unitOfWork.SaveChanges();
         }
 
-        public QuestionDTO GetById(int id)
-        {
-            Question question = _unitOfWork.Questions.GetById(id);
-            return _mapper.Map<QuestionDTO>(question);
-        }
-
         public IEnumerable<QuestionDTO> GetQuestionsByTestId(int id)
         {
             IEnumerable<Question> questions = _unitOfWork.Questions.GetQuestionsByTestId(id);
@@ -59,7 +53,7 @@ namespace BLL.Services
 
         public IEnumerable<QuestionDTO> GetQuestionsWithRelatedOptionsByTestId(int id)
         {
-            IEnumerable<Question> questions = _unitOfWork.Questions.GetQuestionsWithRelatedOptionsByTestId(id);
+            IEnumerable<Question> questions = _unitOfWork.Questions.GetQuestionsWithOptionsByTestId(id);
             return _mapper.Map<IEnumerable<QuestionDTO>>(questions);
         }
 

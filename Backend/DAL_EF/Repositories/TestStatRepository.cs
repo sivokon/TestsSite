@@ -16,15 +16,16 @@ namespace DAL_EF.Repositories
         {
         }
 
-        IEnumerable<TestStat> ITestStatRepository.GetTestStatisticsByUserId(string id)
-        {
-            return this.GetManyByPredicate(testStat => testStat.UserId == id);
-        }
-
         IEnumerable<TestStat> ITestStatRepository.GetTestStatisticsWithRelatedTestsByUserId(string id)
         {
             return this.GetManyByPredicate(testStat => testStat.UserId == id, 
                                            testStat => testStat.Test);
+        }
+
+        IEnumerable<TestStat> ITestStatRepository.GetTestStatisticsWithAnswersByTestId(int id)
+        {
+            return this.GetManyByPredicate(testStat => testStat.TestId == id,
+                                           testStat => testStat.Answers);
         }
 
         void ITestStatRepository.DeleteNotFinishedTestStatisticsByUserId(string id)
@@ -40,6 +41,26 @@ namespace DAL_EF.Repositories
                                              testStat.EndTime == SqlDateTime.MinValue.Value);
         }
 
+        void ITestStatRepository.UpdateRange(IEnumerable<TestStat> statsToUpdate)
+        {
+            if (statsToUpdate == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            foreach (TestStat testStat in statsToUpdate)
+            {
+                TestStat statToUpdate = _dbSet.Find(testStat.Id);
+
+                if (statToUpdate == null)
+                {
+                    throw new ArgumentException();
+                }
+
+                _context.Entry(statToUpdate).CurrentValues.SetValues(testStat);
+            }            
+        }
+
         public override void Add(TestStat entity)
         {
             if (entity == null)
@@ -47,13 +68,13 @@ namespace DAL_EF.Repositories
                 throw new ArgumentNullException();
             }
 
-            entity.StartTime = this.CheckAndAdaptToSqlDateTime(entity.StartTime);
-            entity.EndTime = this.CheckAndAdaptToSqlDateTime(entity.EndTime);
+            entity.StartTime = this.AdaptToSqlDateTime(entity.StartTime);
+            entity.EndTime = this.AdaptToSqlDateTime(entity.EndTime);
 
             this._dbSet.Add(entity);
         }
 
-        private DateTime CheckAndAdaptToSqlDateTime(DateTime dateTime)
+        private DateTime AdaptToSqlDateTime(DateTime dateTime)
         {
             if (dateTime < SqlDateTime.MinValue.Value)
             {

@@ -5,6 +5,7 @@ using DAL_Common.Interfaces;
 using DAL_Common.Models;
 using BLL.DTO;
 using System;
+using System.Linq;
 
 namespace BLL.Services
 {
@@ -18,13 +19,20 @@ namespace BLL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        
-        
-        public void StartTest(TestStatDTO entity)
-        {
-            _unitOfWork.TestStatistics.DeleteNotFinishedTestStatisticsByUserId(entity.UserId);
 
-            TestStat stat = _mapper.Map<TestStat>(entity);
+
+        public IEnumerable<TestStatDTO> GetTestStatisticsWithRelatedTestsByUserId(string id)
+        {
+            IEnumerable<TestStat> stats = _unitOfWork.TestStatistics.GetTestStatisticsWithRelatedTestsByUserId(id);
+            return _mapper.Map<IEnumerable<TestStatDTO>>(stats);
+        }
+
+        public void StartTest(TestStatDTO startTestData)
+        {
+            _unitOfWork.TestStatistics.DeleteNotFinishedTestStatisticsByUserId(startTestData.UserId);
+
+            startTestData.StartTime = DateTime.Now;
+            TestStat stat = _mapper.Map<TestStat>(startTestData);
             _unitOfWork.TestStatistics.Add(stat);
             _unitOfWork.SaveChanges();
         }
@@ -38,37 +46,12 @@ namespace BLL.Services
             if (this.TestWasSentOnTime(startedTestData, endTestData))
             {
                 startedTestData.Result = endTestData.Result;
-                startedTestData.EndTime = endTestData.EndTime;
+                startedTestData.EndTime = DateTime.Now;
                 startedTestData.Answers = _mapper.Map<ICollection<Answer>>(endTestData.Answers);
 
                 _unitOfWork.TestStatistics.Update(startedTestData);
                 _unitOfWork.SaveChanges();
             }            
-        }
-
-        public TestStatDTO GetById(int id)
-        {
-            TestStat stat = _unitOfWork.TestStatistics.GetById(id);
-            return _mapper.Map<TestStatDTO>(stat);
-        }
-
-        public IEnumerable<TestStatDTO> GetTestStatisticsByUserId(string id)
-        {
-            IEnumerable<TestStat> stats = _unitOfWork.TestStatistics.GetTestStatisticsByUserId(id);
-            return _mapper.Map<IEnumerable<TestStatDTO>>(stats);
-        }
-
-        public IEnumerable<TestStatDTO> GetTestStatisticsWithRelatedTestsByUserId(string id)
-        {
-            IEnumerable<TestStat> stats = _unitOfWork.TestStatistics.GetTestStatisticsWithRelatedTestsByUserId(id);
-            return _mapper.Map<IEnumerable<TestStatDTO>>(stats);
-        }
-
-        public TestStatDTO GetNotFinishedTestByUserId(string id)
-        {
-            // ne nuzhen
-            TestStat stat = _unitOfWork.TestStatistics.GetNotFinishedTestByUserId(id);
-            return _mapper.Map<TestStatDTO>(stat);
         }
 
 
@@ -82,13 +65,13 @@ namespace BLL.Services
 
         private int CalculateTestResult(TestStatDTO entity)
         {
-            List<Question> questionsWithCorrectOptions = (List<Question>)_unitOfWork.Questions.GetQuestionWithCorrectOptionsByTestId(entity.TestId);
-            
+            List<Question> allQuestions = (List<Question>)_unitOfWork.Questions.GetQuestionsWithOptionsByTestId(entity.TestId);
+
             int numOfRightAnsw = 0;
 
             foreach (AnswerDTO answer in entity.Answers)
             {
-                answer.PointValue = this.GetPointForAnswer(answer, questionsWithCorrectOptions);
+                answer.PointValue = this.GetPointForAnswer(answer, allQuestions);
 
                 if (answer.PointValue == 1)
                 {
@@ -99,13 +82,15 @@ namespace BLL.Services
             return numOfRightAnsw * 100 / entity.Answers.Count;
         }
 
-        private int GetPointForAnswer(AnswerDTO answer, List<Question> questionsWithCorrectOptions)
+        private int GetPointForAnswer(AnswerDTO answer, List<Question> allQuestion)
         {
-            foreach (Question question in questionsWithCorrectOptions)
+            foreach (Question question in allQuestion)
             {
                 if (answer.QuestionId == question.Id)
                 {
-                    if (this.ChosenOptionsAreCorrect(answer.AnswerOptions, question.CorrectOptions))
+                    List<Option> corrOpts = question.Options.Where(option => option.IsCorrect == true).ToList();
+
+                    if (this.ChosenOptionsAreCorrect(answer.AnswerOptions, corrOpts))
                     {
                         return 1;
                     }
@@ -115,7 +100,7 @@ namespace BLL.Services
             return 0;
         }
 
-        private bool ChosenOptionsAreCorrect(ICollection<AnswerOptionDTO> chosenOptions, ICollection<CorrectOption> correctOptions)
+        private bool ChosenOptionsAreCorrect(List<AnswerOptionDTO> chosenOptions, List<Option> correctOptions)
         {
             if (chosenOptions.Count != correctOptions.Count)
             {
@@ -126,9 +111,9 @@ namespace BLL.Services
 
             foreach (AnswerOptionDTO chosenOption in chosenOptions)
             {
-                foreach (CorrectOption corrAnsw in correctOptions)
+                foreach (Option corrOpt in correctOptions)
                 {
-                    if (chosenOption.OptionId == corrAnsw.OptionId)
+                    if (chosenOption.OptionId == corrOpt.Id)
                     {
                         numOfEqual++;
                         break;
@@ -140,23 +125,6 @@ namespace BLL.Services
         }
 
 
-    }
-
-
-    public class TestSaveResult
-    {
-        public bool Succeeded { get; }
-        public string[] Errors { get; }
-
-        public TestSaveResult(bool succeeded)
-        {
-            this.Succeeded = succeeded;
-        }
-
-        public TestSaveResult(params string[] errors)
-        {
-            this.Errors = errors;
-        }
     }
 
 }

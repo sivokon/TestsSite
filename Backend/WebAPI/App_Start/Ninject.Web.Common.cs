@@ -1,7 +1,6 @@
 using System.Configuration;
 using BLL.Infrastructure;
-using BLL.Intrefaces;
-using BLL.Services;
+using WebAPI.Infrastructure;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebAPI.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(WebAPI.App_Start.NinjectWebCommon), "Stop")]
@@ -66,18 +65,8 @@ namespace WebAPI.App_Start
         /// </summary>
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
-        {
-            kernel.Bind<ITestService>().To<TestService>();
-            kernel.Bind<ITestCategoryService>().To<TestCategoryService>();
-            kernel.Bind<IQuestionService>().To<QuestionService>();
-            kernel.Bind<IOptionService>().To<OptionService>();
-            kernel.Bind<ITestStatService>().To<TestStatService>();
-            kernel.Bind<IAnswerService>().To<AnswerService>();
-
-            kernel.Bind<IUserService>().To<UserService>();
-            kernel.Bind<IRoleService>().To<RoleService>();
-
-            kernel.Load(new MapperModule(), new UnitOfWorkModule(connectionString));
+        {            
+            kernel.Load(new MapperModule(), new UnitOfWorkModule(connectionString), new ServicesModule());
         }        
     }
 }

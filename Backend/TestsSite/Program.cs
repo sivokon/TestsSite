@@ -28,19 +28,6 @@ namespace TestsSite
             //}
             //Console.WriteLine();
 
-
-            IQuestionRepository qr = new QuestionRepository(context);
-            IEnumerable<Question> qs = qr.GetAll();
-            foreach(var q in qs)
-            {
-                Console.WriteLine(q.Id);
-                //foreach (var op in q.Options)
-                //{
-                //    Console.WriteLine(op.Id);
-                //}
-            }
-            Console.WriteLine();
-
             //ICorrectAnswerRepository corrQuesRepo = new CorrectAnswerRepository(context);
             //IEnumerable<CorrectAnswer> ca = corrQuesRepo.GetCorrectAnswersByTestId(1);
             //foreach (var a in ca)
